@@ -182,10 +182,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6470154589327210402}
   - component: {fileID: 5681855982195788682}
-  - component: {fileID: 3680836574193953878}
+  - component: {fileID: -5548762110393445079}
   - component: {fileID: 7586945551401360319}
   - component: {fileID: 3756157491544233155}
-  - component: {fileID: 8170307211077164413}
+  - component: {fileID: -2002446032392784695}
   - component: {fileID: 3568892486692658741}
   m_Layer: 0
   m_Name: Player
@@ -234,7 +234,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &3680836574193953878
+--- !u!54 &-5548762110393445079
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +243,7 @@ Rigidbody:
   m_GameObject: {fileID: 8814912854019215777}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carriableItemsInScene: {fileID: 0}
+  itemAnchorPoint: {fileID: 0}
   carriedItem: {fileID: 0}
 --- !u!114 &3756157491544233155
 MonoBehaviour:
@@ -311,7 +312,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &8170307211077164413
+--- !u!114 &-2002446032392784695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,5 +341,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9b23011091b1e44b7e3bdfd0089ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _moveSpeed: 50
   _rotateSpeed: 10
