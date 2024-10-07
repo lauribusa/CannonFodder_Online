@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Assets.Features.Controllers
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField, Min(0)] private float _moveSpeed = 10;
@@ -11,14 +10,20 @@ namespace Assets.Features.Controllers
         private Rigidbody _rigidbody;
         private Vector3 _inputDirection;
 
-        private void Awake() => _rigidbody = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+        }
 
-        private void Update() => SetInputDirection();
+        private void Update()
+        {
+            SetInputDirection();
+            Rotate();
+        }
 
         private void FixedUpdate()
         {
             Move();
-            Rotate();
         }
 
         private void SetInputDirection()
@@ -32,17 +37,16 @@ namespace Assets.Features.Controllers
 
         private void Move()
         {
-            Vector3 velocity = _moveSpeed * Time.fixedDeltaTime * _inputDirection;
-            Vector3 newPosition = _rigidbody.position + velocity;
-            _rigidbody.MovePosition(newPosition);
+            Vector3 velocity = _moveSpeed * _inputDirection;
+            _rigidbody.AddForce(velocity);
         }
 
         private void Rotate()
         {
             if (_inputDirection == Vector3.zero) return;
-
+            
             var lookRotation = Quaternion.LookRotation(_inputDirection);
-            _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, lookRotation, _rotateSpeed * Time.fixedDeltaTime);
+            _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, lookRotation, _rotateSpeed * Time.deltaTime);
         }
     }
 }
