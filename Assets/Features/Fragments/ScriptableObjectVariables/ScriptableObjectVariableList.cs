@@ -18,6 +18,6 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
             objectList.Remove(obj);
         }
 
-        public List<T> GetList() => objectList;
+        public List<T> GetList() => new(objectList);
     }
 }

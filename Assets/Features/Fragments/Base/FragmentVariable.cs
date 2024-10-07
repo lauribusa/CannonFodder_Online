@@ -1,9 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Features.Fragments.Base
 {
+    [Serializable]
     public class FragmentVariable<T>
     {
+        [SerializeField]
         private T _value;
 
         public T Value

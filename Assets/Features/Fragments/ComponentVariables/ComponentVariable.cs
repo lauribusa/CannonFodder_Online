@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ComponentVariable<T> : MonoBehaviour, IVariable<T>
 {
-    private readonly FragmentVariable<T> fragment = new();
+    [SerializeField]
+    private FragmentVariable<T> fragment = new();
 
     public T Value { get => fragment.Value; set => fragment.Value = value; }
 
