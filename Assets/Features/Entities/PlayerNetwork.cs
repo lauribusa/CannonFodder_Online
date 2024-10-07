@@ -42,7 +42,7 @@ public class PlayerNetwork : NetworkBehaviour
 
     private void OnColorChange(Color prev, Color next)
     {
-        GetComponent<MeshRenderer>().material.color = next;
+        GetComponentInChildren<MeshRenderer>().material.color = next;
     }
 
     [Rpc(SendTo.Server)]
