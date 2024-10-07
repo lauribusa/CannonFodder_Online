@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Features.Debug
+namespace Assets.Features
 {
     public enum DebugLevel
     {
