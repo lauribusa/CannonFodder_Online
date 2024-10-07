@@ -12,7 +12,7 @@ namespace Assets.Features.Entities
 
         public Transform itemAnchorPoint;
 
-        private NetworkVariable<Item> carriedItem = new();
+        private NetworkVariable<int> carriedItemId = new();
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -23,7 +23,7 @@ namespace Assets.Features.Entities
 
         private void PerformAction()
         {
-            if (carriedItem == null)
+            if (carriedItem == -1)
             {
                 PerformPickupRpc();
                 return;

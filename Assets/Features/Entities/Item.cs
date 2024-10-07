@@ -1,4 +1,5 @@
 ﻿using Assets.Features.Fragments.ScriptableObjectVariables;
+using Assets.Features.Interfaces;
 using System;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Assets.Features.Entities
 {
     [GenerateSerializationForTypeAttribute(typeof(Item))]
-    public class Item : MonoBehaviour, IEquatable<Item>, INetworkSerializeByMemcpy
+    public class Item : MonoBehaviour, IEquatable<Item>, IPoolItem
     {
         [SerializeField]
         private Rigidbody body;
@@ -16,6 +17,8 @@ namespace Assets.Features.Entities
         public ItemListSO allItems;
         public BoolVariableSO isCarried;
         public FloatVariableSO weight;
+
+        public int Id { get; set; }
 
         private void OnEnable()
         {
