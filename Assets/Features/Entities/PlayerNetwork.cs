@@ -8,7 +8,8 @@ public class PlayerNetwork : NetworkBehaviour
 {
     private NetworkVariable<Color> playerColor = new();
     private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Owner);
-    private TMP_Text _tag;
+    [SerializeField]
+    private TextMeshProUGUI _tag;
     public override void OnNetworkSpawn()
     {
         playerColor.OnValueChanged += OnColorChange;
