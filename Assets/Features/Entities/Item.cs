@@ -1,11 +1,12 @@
-﻿using Assets.Features.Fragments.ComponentVariables;
-using Assets.Features.Fragments.ScriptableObjectVariables;
+﻿using Assets.Features.Fragments.ScriptableObjectVariables;
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Features.Entities
 {
     [RequireComponent(typeof(Collider))]
-    public class Item : MonoBehaviour
+    public class Item : MonoBehaviour, IEquatable<Item>
     {
         [SerializeField]
         private Rigidbody body;
@@ -13,9 +14,8 @@ namespace Assets.Features.Entities
         private Collider itemCollider;
 
         public ItemListSO allItems;
-        public BoolVariable isCarried;
-        public FloatVariableSO floatVariableSO;
-
+        public NetworkVariable<bool> isCarried;
+        public FloatVariableSO weight;
 
         private void OnEnable()
         {
@@ -63,6 +63,12 @@ namespace Assets.Features.Entities
             body.isKinematic = false;
             isCarried.Value = false;
             return this;
+        }
+
+        public bool Equals(Item other)
+        {
+            if (this != other) return false;
+            return true;
         }
     }
 }

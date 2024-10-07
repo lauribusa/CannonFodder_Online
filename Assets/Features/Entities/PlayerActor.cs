@@ -12,8 +12,7 @@ namespace Assets.Features.Entities
 
         public Transform itemAnchorPoint;
 
-        [SerializeField]
-        private Item carriedItem;
+        private NetworkVariable<Item> carriedItem;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -34,13 +33,6 @@ namespace Assets.Features.Entities
 
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void SetItemParentRpc()
-        {
-            carriedItem.transform.SetParent(itemAnchorPoint);
-            carriedItem = carriedItem.PickUp();
-        }
-
         [Rpc(SendTo.Server)]
         private void PerformPickupRpc()
         {
@@ -54,20 +46,30 @@ namespace Assets.Features.Entities
                 if (debug) Debug.Log($"Distance between {gameObject.name} and {item.name}: {distance} (required: {GameHelpers.DetectionRange})", gameObject);
                 if (distance <= GameHelpers.DetectionRange)
                 {
-                    SetItemParentRpc();
+                    carriedItem.Value = item.PickUp();
+                    carriedItem.Value.transform.SetParent(itemAnchorPoint);
                     if (debug) Debug.Log($"Carrying {item.name}", gameObject);
                     break;
                 }
             }
         }
 
+        private void OnCarriedItemUpdate(Item prev, Item next)
+        {
+            if(next != null)
+            {
+                
+                return;
+            }
+        }
+
         [Rpc(SendTo.Server)]
         private void PerformPutDownRpc()
         {
-            if (debug) Debug.Log($"Putting {carriedItem.name} down.", gameObject);
-            carriedItem.transform.SetParent(null);
-            carriedItem.PutDown();
-            carriedItem = null;
+            if (debug) Debug.Log($"Putting {carriedItem.Value.name} down.", gameObject);
+            carriedItem.Value.transform.SetParent(null);
+            carriedItem.Value.PutDown();
+            carriedItem.Value = null;
         }
     }
 }
