@@ -12,7 +12,7 @@ namespace Assets.Features.Entities
 
         public Transform itemAnchorPoint;
 
-        private NetworkVariable<Item> carriedItem;
+        private NetworkVariable<Item> carriedItem = new();
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))

@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Assets.Features.Entities
 {
-    [RequireComponent(typeof(Collider))]
-    public class Item : MonoBehaviour, IEquatable<Item>
+    [GenerateSerializationForTypeAttribute(typeof(Item))]
+    public class Item : MonoBehaviour, IEquatable<Item>, INetworkSerializeByMemcpy
     {
         [SerializeField]
         private Rigidbody body;
@@ -14,7 +14,7 @@ namespace Assets.Features.Entities
         private Collider itemCollider;
 
         public ItemListSO allItems;
-        public NetworkVariable<bool> isCarried;
+        public BoolVariableSO isCarried;
         public FloatVariableSO weight;
 
         private void OnEnable()
