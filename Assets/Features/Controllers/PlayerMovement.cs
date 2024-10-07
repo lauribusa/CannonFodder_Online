@@ -10,10 +10,7 @@ namespace Assets.Features.Controllers
         private Rigidbody _rigidbody;
         private Vector3 _inputDirection;
 
-        private void Awake()
-        {
-            _rigidbody = GetComponent<Rigidbody>();
-        }
+        private void Awake() => _rigidbody = GetComponent<Rigidbody>();
 
         private void Update()
         {
@@ -21,10 +18,7 @@ namespace Assets.Features.Controllers
             Rotate();
         }
 
-        private void FixedUpdate()
-        {
-            Move();
-        }
+        private void FixedUpdate() => Move();
 
         private void SetInputDirection()
         {
