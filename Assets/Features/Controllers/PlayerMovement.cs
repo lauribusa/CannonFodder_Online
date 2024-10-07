@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Assets.Features.Controllers
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField, Min(0)] private float _moveSpeed = 10;
