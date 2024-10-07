@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class ScriptableObjectVariable<T> : ScriptableObject, IVariable<T>
 {
-    private readonly FragmentVariable<T> fragment = new();
+    [SerializeField]
+    private bool debug;
+    [SerializeField]
+    private FragmentVariable<T> fragment = new();
 
-    public T Value { get => fragment.Value; set => fragment.Value = value; }
+    public T Value { get => fragment.Value; set
+        {
+            fragment.Value = value;
+            if (debug) Debug.Log($"{this.name} value set to {fragment.Value}", this);
+        }
+    }
 
     public void Subscribe(Action<T> action)
     {

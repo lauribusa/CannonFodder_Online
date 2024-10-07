@@ -2,12 +2,6 @@
 
 namespace Assets.Features
 {
-    public enum DebugLevel
-    {
-        INFO,
-        WARNING,
-        ERROR,
-    }
     [CreateAssetMenu(menuName = "Debug")]
     public class DebuggerSO: ScriptableObject
     {
@@ -30,18 +24,25 @@ namespace Assets.Features
             switch (debugLevel)
             {
                 case DebugLevel.INFO:
-                    UnityEngine.Debug.Log(message);
+                    Debug.Log(message);
                     break;
                 case DebugLevel.WARNING:
-                    UnityEngine.Debug.LogWarning(message);
+                    Debug.LogWarning(message);
                     break;
                 case DebugLevel.ERROR:
-                    UnityEngine.Debug.LogError(message);
+                    Debug.LogError(message);
                     break;
                 default:
-                    UnityEngine.Debug.Log(message);
+                    Debug.Log(message);
                     break;
             }
         }
+    }
+
+    public enum DebugLevel
+    {
+        INFO,
+        WARNING,
+        ERROR,
     }
 }

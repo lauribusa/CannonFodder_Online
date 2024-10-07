@@ -86,6 +86,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7064131281082210112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3355669502648119747}
+  m_Layer: 0
+  m_Name: ItemAnchorPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3355669502648119747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7064131281082210112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6470154589327210402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8550162775366723054
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,10 +213,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6470154589327210402}
   - component: {fileID: 5681855982195788682}
-  - component: {fileID: -5548762110393445079}
+  - component: {fileID: 3680836574193953878}
   - component: {fileID: 7586945551401360319}
   - component: {fileID: 3756157491544233155}
-  - component: {fileID: -2002446032392784695}
+  - component: {fileID: 8170307211077164413}
   - component: {fileID: 3568892486692658741}
   m_Layer: 0
   m_Name: Player
@@ -209,6 +240,7 @@ Transform:
   m_Children:
   - {fileID: 5461727245816240150}
   - {fileID: 5146742907969990689}
+  - {fileID: 3355669502648119747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5681855982195788682
@@ -234,7 +266,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &-5548762110393445079
+--- !u!54 &3680836574193953878
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +275,7 @@ Rigidbody:
   m_GameObject: {fileID: 8814912854019215777}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 5
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -273,8 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ebe8884c0265e4fa0be34568d333e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carriableItemsInScene: {fileID: 0}
-  itemAnchorPoint: {fileID: 0}
+  carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
+  itemAnchorPoint: {fileID: 3355669502648119747}
   carriedItem: {fileID: 0}
 --- !u!114 &3756157491544233155
 MonoBehaviour:
@@ -312,7 +344,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &-2002446032392784695
+--- !u!114 &8170307211077164413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,5 +373,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9b23011091b1e44b7e3bdfd0089ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 50
+  _moveSpeed: 10
   _rotateSpeed: 10
