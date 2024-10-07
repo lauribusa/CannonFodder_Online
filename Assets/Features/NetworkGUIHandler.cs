@@ -26,12 +26,7 @@ namespace Assets.Features
 
         public void StartHost()
         {
-            NetworkManager.Singleton.StartClient();
-        }
-
-        public void StartServer()
-        {
-            NetworkManager.Singleton.StartServer();
+            NetworkManager.Singleton.StartHost();
         }
 
         public void StartClient()
