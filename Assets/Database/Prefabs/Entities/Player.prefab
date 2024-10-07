@@ -275,7 +275,7 @@ Rigidbody:
   m_GameObject: {fileID: 8814912854019215777}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ebe8884c0265e4fa0be34568d333e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
   itemAnchorPoint: {fileID: 3355669502648119747}
   carriedItem: {fileID: 0}
@@ -373,5 +374,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9b23011091b1e44b7e3bdfd0089ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _moveSpeed: 50
   _rotateSpeed: 10
