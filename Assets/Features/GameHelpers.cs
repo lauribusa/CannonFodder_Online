@@ -7,7 +7,7 @@ namespace Assets.Features
 {
     public static class GameHelpers
     {
-        public static float DetectionRange = 1f;
+        public static float DetectionRange = 10f;
 
         public static List<T> SortByDistance<T>(List<T> objects, Vector3 entityPosition) 
             where T : MonoBehaviour {

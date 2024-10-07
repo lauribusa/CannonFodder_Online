@@ -6,9 +6,17 @@ using UnityEngine;
 public class ComponentVariable<T> : MonoBehaviour, IVariable<T>
 {
     [SerializeField]
+    private bool debug;
+    [SerializeField]
     private FragmentVariable<T> fragment = new();
 
-    public T Value { get => fragment.Value; set => fragment.Value = value; }
+    public T Value {
+        get { return fragment.Value; }
+        set {
+            fragment.Value = value; 
+            if (debug) Debug.Log($"{gameObject.name} value set to {fragment.Value}", gameObject);
+        } 
+    }
 
     public void Subscribe(Action<T> action)
     {
