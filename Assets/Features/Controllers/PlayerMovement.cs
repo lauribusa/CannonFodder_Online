@@ -9,13 +9,20 @@ namespace Assets.Features.Controllers
         [SerializeField, Min(0)] private float _rotateSpeed = 10;
 
         private Rigidbody _rigidbody;
+        private Transform _camera;
         private Vector3 _inputDirection;
+        private Vector3 _moveDirection;
 
-        private void Awake() => _rigidbody = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            _camera = Camera.main.transform;
+        }
 
         private void Update()
         {
             SetInputDirection();
+            AdaptDirectionToCamera();
             Rotate();
         }
 
@@ -25,14 +32,24 @@ namespace Assets.Features.Controllers
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
-            _inputDirection.x = horizontal;
-            _inputDirection.z = vertical;
-            _inputDirection.Normalize();
+            _inputDirection = new Vector3(horizontal, 0, vertical).normalized;
+        }
+
+        private void AdaptDirectionToCamera()
+        {
+            if (_inputDirection == Vector3.zero)
+            {
+                _moveDirection = Vector3.zero;
+                return;
+            }
+
+            float targetAngle = Mathf.Atan2(_inputDirection.x, _inputDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+            _moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
         }
 
         private void Move()
         {
-            Vector3 velocity = _moveSpeed * _inputDirection;
+            Vector3 velocity = _moveSpeed * _moveDirection;
             _rigidbody.AddForce(velocity);
         }
 
@@ -40,7 +57,7 @@ namespace Assets.Features.Controllers
         {
             if (_inputDirection == Vector3.zero) return;
             
-            var lookRotation = Quaternion.LookRotation(_inputDirection);
+            var lookRotation = Quaternion.LookRotation(_moveDirection);
             _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, lookRotation, _rotateSpeed * Time.deltaTime);
         }
     }
