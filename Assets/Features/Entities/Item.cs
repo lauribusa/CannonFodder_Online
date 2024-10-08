@@ -66,6 +66,7 @@ namespace Assets.Features.Entities
 
         public Item PickUp()
         {
+            SetCarriedRpc();
             PickUpRpc();
             return this;
         }
@@ -73,15 +74,31 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.ClientsAndHost)]
         public void PickUpRpc()
         {
+            //if (IsServer) return;
+            
             itemCollider.enabled = false;
             body.isKinematic = true;
-            isCarried.Value = true;
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
         }
 
+        [Rpc(SendTo.Server)]
+        public void SetCarriedRpc()
+        {
+            if (!IsServer) return;
+            isCarried.Value = true;
+        }
+
+        [Rpc(SendTo.Server)]
+        public void SetNotCarriedRpc()
+        {
+            if (!IsServer) return;
+            isCarried.Value = false;
+        }
+
         public Item PutDown()
         {
+            SetNotCarriedRpc();
             PutDownRpc();
             return this;
         }
@@ -91,7 +108,6 @@ namespace Assets.Features.Entities
         {
             itemCollider.enabled = true;
             body.isKinematic = false;
-            isCarried.Value = false;
         }
 
         public bool Equals(Item other)

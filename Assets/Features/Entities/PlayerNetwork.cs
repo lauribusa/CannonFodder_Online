@@ -7,9 +7,10 @@ using UnityEngine;
 public class PlayerNetwork : NetworkBehaviour
 {
     private NetworkVariable<Color> playerColor = new();
-    private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Server);
     [SerializeField]
     private TextMeshProUGUI _tag;
+    private NetworkVariable<int> playerNumber = new(1, writePerm: NetworkVariableWritePermission.Server);
     public override void OnNetworkSpawn()
     {
         playerColor.OnValueChanged += OnColorChange;
@@ -18,7 +19,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (IsLocalPlayer)
         {
             GetPositionRpc();
-            playerName.Value = Guid.NewGuid().ToString();
+            GetNameRpc();
         }
         if (IsServer)
         {
@@ -53,6 +54,20 @@ public class PlayerNetwork : NetworkBehaviour
         if (!IsHost) transform.position = playerPosition;
 
         SetPositionRpc(playerPosition);
+    }
+
+    [Rpc(SendTo.Server)]
+    private void GetNameRpc()
+    {
+        var newName = $"Player {NetworkSingleton.Instance.playerId.Value}";
+        playerName.Value = newName;
+        NetworkSingleton.Instance.IncreaseRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void SetNameRpc()
+    {
+
     }
 
     [Rpc(SendTo.ClientsAndHost)]
