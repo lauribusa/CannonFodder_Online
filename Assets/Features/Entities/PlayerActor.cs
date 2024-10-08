@@ -1,6 +1,4 @@
 ﻿using Assets.Features.Fragments.ScriptableObjectVariables;
-using System.Globalization;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,7 +25,7 @@ namespace Assets.Features.Entities
 
         private void PerformAction()
         {
-            if (carriedItemId.Value == -1)
+            if (carriedItemId.Value < 0)
             {
                 PerformPickupRpc();
                 return;
@@ -63,7 +61,8 @@ namespace Assets.Features.Entities
                 if (distance <= GameHelpers.DetectionRange)
                 {
                     carriedItemId.Value = item.PickUp().Id;
-                    item.transform.SetParent(itemAnchorPoint);
+                    item.transform.SetParent(transform);
+                    item.transform.localPosition = new Vector3(0, 1, 1);
                     if (debug) Debug.Log($"Carrying {item.name}", gameObject);
                     break;
                 }
@@ -83,8 +82,9 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.Server)]
         private void PerformPutDownRpc()
         {
-            if (debug) Debug.Log($"Putting {carriedItem.name} down.", gameObject);
-            
+            if (debug) Debug.Log($"Putting {carriedItem.name} ({carriedItemId.Value}) down.", gameObject);
+            carriedItem.transform.SetParent(null);
+            carriedItem.PutDown();
             carriedItemId.Value = -1;
         }
     }

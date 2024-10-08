@@ -56,6 +56,7 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
         private void AddToLookups(int id, T obj)
         {
             lookups.Add(id, obj);
+            obj.Id = id;
             OnPoolUpdated?.Invoke(lookups);
         }
 

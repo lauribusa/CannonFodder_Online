@@ -19,7 +19,7 @@ namespace Assets.Features.Entities
         public NetworkVariable<bool> isCarried;
         public FloatVariableSO weight;
 
-        public int Id { get; set; }
+        public int Id { get; set; } = -2;
 
         private void OnEnable()
         {
@@ -34,8 +34,8 @@ namespace Assets.Features.Entities
         private void RegisterSelfToItemList()
         {
             if (allItems.Has(this)) return;
-            if (debug) Debug.Log($"Adding {name} to pool", gameObject);
             allItems.Add(this);
+            if (debug) Debug.Log($"Adding {name} (ID: {Id}) to pool", gameObject);
         }
 
         private void UnregisterSelfFromItemList()
@@ -76,10 +76,16 @@ namespace Assets.Features.Entities
 
         public Item PutDown()
         {
+            PutDownRpc();
+            return this;
+        }
+
+        [Rpc(SendTo.Server)]
+        public void PutDownRpc()
+        {
             itemCollider.enabled = true;
             body.isKinematic = false;
             isCarried.Value = false;
-            return this;
         }
 
         public bool Equals(Item other)
