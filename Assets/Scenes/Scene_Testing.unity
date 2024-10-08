@@ -1006,36 +1006,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984030273}
   m_CullTransparentMesh: 1
---- !u!1 &1064821691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3843018387952223772, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
-  m_PrefabInstance: {fileID: 1994059630}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1064821693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064821691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 24680891
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!1 &1144022657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,6 +1929,10 @@ PrefabInstance:
       propertyPath: _itemTest
       value: 
       objectReference: {fileID: 2133871430}
+    - target: {fileID: 68075698687247332, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
+      propertyPath: _itemTest
+      value: 
+      objectReference: {fileID: 2133871430}
     - target: {fileID: 494434792626305573, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.62
@@ -1999,14 +1973,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 686877716432778304, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
-      propertyPath: _itemTest
-      value: 
-      objectReference: {fileID: 2133871430}
-    - target: {fileID: 1862175776311095670, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
-      propertyPath: Interpolate
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2809938312853751998, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
       propertyPath: m_Name
       value: BulletLoadingCar
@@ -2015,17 +1981,18 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3965116907
       objectReference: {fileID: 0}
-    - target: {fileID: 5101828123043806628, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
+    - target: {fileID: 6050103781329420602, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4233414488
+      objectReference: {fileID: 0}
+    - target: {fileID: 6050103781329420602, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 2862452408
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3843018387952223772, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1064821693}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
 --- !u!114 &2133871430 stripped
 MonoBehaviour:
