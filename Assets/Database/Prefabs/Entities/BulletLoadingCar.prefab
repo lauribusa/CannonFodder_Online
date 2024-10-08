@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5101828123043806628}
   - component: {fileID: 1862175776311095670}
   - component: {fileID: 4485547364852800519}
+  - component: {fileID: -6504639672144166043}
+  - component: {fileID: 9107564760279711294}
   m_Layer: 0
   m_Name: BulletLoadingCar
   m_TagString: Untagged
@@ -171,7 +173,7 @@ MonoBehaviour:
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
-  Interpolate: 0
+  Interpolate: 1
   SlerpPosition: 0
 --- !u!114 &4485547364852800519
 MonoBehaviour:
@@ -190,6 +192,34 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 0
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &-6504639672144166043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809938312853751998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ffb67849448d9f46859ab595fc3bc09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _anchorPoint: {fileID: 807644517449613422}
+  _itemTest: {fileID: 0}
+--- !u!114 &9107564760279711294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809938312853751998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032484f005ea7f54994aea2fdf112fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &3843018387952223772
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +262,6 @@ GameObject:
   - component: {fileID: 8095911889828594107}
   - component: {fileID: 5475593614833890540}
   - component: {fileID: 7952364324794879512}
-  - component: {fileID: 686877716432778304}
   m_Layer: 0
   m_Name: Trigger_ItemLoading
   m_TagString: Untagged
@@ -303,21 +332,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &686877716432778304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6730518120748425498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ffb67849448d9f46859ab595fc3bc09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  _anchorPoint: {fileID: 807644517449613422}
-  _itemTest: {fileID: 0}
 --- !u!1001 &3757620693385361715
 PrefabInstance:
   m_ObjectHideFlags: 0

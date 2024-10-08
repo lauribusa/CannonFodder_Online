@@ -1,18 +1,23 @@
+using Assets.Features.Entities;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Features.Controllers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : NetworkBehaviour
+    public class PlayerMovement : NetworkBehaviour, ICanPush
     {
+        #region Exposed
+
         [SerializeField, Min(0)] private float _moveSpeed = 10;
         [SerializeField, Min(0)] private float _rotateSpeed = 10;
 
-        private Rigidbody _rigidbody;
-        private Transform _camera;
-        private Vector3 _inputDirection;
-        private Vector3 _moveDirection;
+        [field:SerializeField, Min(0)] public float PushingForce { get; set; } = 15;
+
+        #endregion
+
+        
+        #region Unity API
 
         private void Awake()
         {
@@ -28,6 +33,11 @@ namespace Assets.Features.Controllers
         }
 
         private void FixedUpdate() => Move();
+
+        #endregion
+
+
+        #region Movement
 
         private void SetInputDirection()
         {
@@ -63,5 +73,17 @@ namespace Assets.Features.Controllers
             var lookRotation = Quaternion.LookRotation(_moveDirection);
             _rigidbody.rotation = Quaternion.Lerp(_rigidbody.rotation, lookRotation, _rotateSpeed * Time.deltaTime);
         }
+
+        #endregion
+
+
+        #region Private And Protected Members
+
+        private Rigidbody _rigidbody;
+        private Transform _camera;
+        private Vector3 _inputDirection;
+        private Vector3 _moveDirection;
+
+        #endregion
     }
 }

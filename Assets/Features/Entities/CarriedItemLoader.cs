@@ -11,13 +11,9 @@ namespace Assets.Features.Entities
         [SerializeField] private Transform _anchorPoint;
         public Item _itemTest;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!other.TryGetComponent(out Item item)) return;
-            if (!item.isCarried.Value) return;
+        private Rigidbody _rigidbody;
 
-            Debug.Log($"{item.name} Detected");
-        }
+        private void Awake() => _rigidbody = GetComponent<Rigidbody>();
 
         private void OnGUI()
         {
