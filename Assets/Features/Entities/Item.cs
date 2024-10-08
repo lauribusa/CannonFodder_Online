@@ -16,7 +16,7 @@ namespace Assets.Features.Entities
         private Collider itemCollider;
 
         public ItemPool allItems;
-        public NetworkVariable<bool> isCarried;
+        public NetworkVariable<bool> isCarried = new();
         public FloatVariableSO weight;
 
         public int Id { get; set; } = -2;
@@ -56,7 +56,7 @@ namespace Assets.Features.Entities
                 itemCollider = GetComponent<Collider>();
             }
             RegisterSelfToItemList();
-            isCarried.Value = false;
+            if(IsServer) isCarried.Value = false;
         }
 
         public override void OnNetworkDespawn()
@@ -66,12 +66,18 @@ namespace Assets.Features.Entities
 
         public Item PickUp()
         {
+            PickUpRpc();
+            return this;
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        public void PickUpRpc()
+        {
             itemCollider.enabled = false;
             body.isKinematic = true;
             isCarried.Value = true;
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-            return this;
         }
 
         public Item PutDown()
@@ -80,7 +86,7 @@ namespace Assets.Features.Entities
             return this;
         }
 
-        [Rpc(SendTo.Server)]
+        [Rpc(SendTo.ClientsAndHost)]
         public void PutDownRpc()
         {
             itemCollider.enabled = true;

@@ -12,7 +12,7 @@ namespace Assets.Features.Entities
 
         public Transform itemAnchorPoint;
 
-        private NetworkVariable<int> carriedItemId = new();
+        private NetworkVariable<int> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
 
         private Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
         private void Update()
@@ -38,7 +38,7 @@ namespace Assets.Features.Entities
         public override void OnNetworkSpawn()
         {
             carriedItemId.OnValueChanged += OnCarriedItemIdUpdate;
-            carriedItemId.Value = -1;
+            if(IsServer) carriedItemId.Value = -1;
         }
 
         public override void OnNetworkDespawn()
