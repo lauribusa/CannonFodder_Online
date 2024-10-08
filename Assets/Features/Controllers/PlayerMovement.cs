@@ -1,9 +1,10 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Features.Controllers
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         [SerializeField, Min(0)] private float _moveSpeed = 10;
         [SerializeField, Min(0)] private float _rotateSpeed = 10;
@@ -30,6 +31,8 @@ namespace Assets.Features.Controllers
 
         private void SetInputDirection()
         {
+            if (!IsLocalPlayer) return;
+
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
             _inputDirection = new Vector3(horizontal, 0, vertical).normalized;
