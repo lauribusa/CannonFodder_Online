@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class CannonController : MonoBehaviour
+namespace Assets.Features.Controllers
 {
-    [SerializeField] private Transform _rotator;
-    [SerializeField] private Transform _elevator;
-
-    public void RotateCannon(float degrees)
+    public class CannonController : MonoBehaviour
     {
-        
+        [SerializeField] private Transform _rotator;
+        [SerializeField] private Transform _elevator;
+
+        public void RotateCannon(float degrees)
+        {
+
+        }
     }
 }
