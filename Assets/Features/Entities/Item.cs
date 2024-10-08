@@ -6,16 +6,17 @@ using UnityEngine;
 
 namespace Assets.Features.Entities
 {
-    [GenerateSerializationForTypeAttribute(typeof(Item))]
-    public class Item : MonoBehaviour, IEquatable<Item>, IPoolItem
+    public class Item : NetworkBehaviour, IEquatable<Item>, IPoolItem
     {
+        [SerializeField]
+        private bool debug;
         [SerializeField]
         private Rigidbody body;
         [SerializeField]
         private Collider itemCollider;
 
-        public ItemListSO allItems;
-        public BoolVariableSO isCarried;
+        public ItemPool allItems;
+        public NetworkVariable<bool> isCarried;
         public FloatVariableSO weight;
 
         public int Id { get; set; }
@@ -23,16 +24,6 @@ namespace Assets.Features.Entities
         private void OnEnable()
         {
             RegisterSelfToItemList();
-
-            if (body == null && TryGetComponent<Rigidbody>(out var rb))
-            {
-                body = rb;
-            }
-
-            if (itemCollider == null)
-            {
-                itemCollider = GetComponent<Collider>();
-            }
         }
 
         private void OnDisable()
@@ -42,12 +33,35 @@ namespace Assets.Features.Entities
 
         private void RegisterSelfToItemList()
         {
+            if (allItems.Has(this)) return;
+            if (debug) Debug.Log($"Adding {name} to pool", gameObject);
             allItems.Add(this);
         }
 
         private void UnregisterSelfFromItemList()
         {
-            allItems.Remove(this);
+            if (debug) Debug.Log($"Removing {name} from pool", gameObject);
+            allItems.Remove(Id);
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (body == null && TryGetComponent<Rigidbody>(out var rb))
+            {
+                body = rb;
+            }
+
+            if (itemCollider == null)
+            {
+                itemCollider = GetComponent<Collider>();
+            }
+            RegisterSelfToItemList();
+            isCarried.Value = false;
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            UnregisterSelfFromItemList();
         }
 
         public Item PickUp()

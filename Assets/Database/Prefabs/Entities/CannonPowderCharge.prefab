@@ -226,11 +226,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee3d42aa2e59d546a8b8473236f4c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  debug: 1
   body: {fileID: 2249906014345072877}
   itemCollider: {fileID: 73561557897089647}
   allItems: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
-  isCarried: {fileID: 3602847903528947366}
-  floatVariableSO: {fileID: 0}
+  isCarried:
+    m_InternalValue: 0
+  weight: {fileID: 11400000, guid: 21da5db463355a44a8059d8d4ed13251, type: 2}
 --- !u!1001 &2775901497427942540
 PrefabInstance:
   m_ObjectHideFlags: 0

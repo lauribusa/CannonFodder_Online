@@ -4,8 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - body: {instanceID: 0}
+  - itemCollider: {instanceID: 0}
   - allItems: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
-  - isCarried: {instanceID: 0}
+  - weight: {fileID: 11400000, guid: 53482f38454b4a242a8141ab0bfde4c5, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

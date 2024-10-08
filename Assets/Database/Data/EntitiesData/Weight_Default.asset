@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa60b6d2783619c48a6adee0675a917f, type: 3}
-  m_Name: ItemsInScene
+  m_Script: {fileID: 11500000, guid: 42e01d8e630b8d145aefb954ba57f237, type: 3}
+  m_Name: Weight_Default
   m_EditorClassIdentifier: 
-  maxId: 0
-  list: []
+  debug: 0
+  fragment:
+    _value: 1

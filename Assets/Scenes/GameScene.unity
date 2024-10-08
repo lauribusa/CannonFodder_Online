@@ -820,6 +820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene_PlayArea
       objectReference: {fileID: 0}
+    - target: {fileID: 8906363044848209043, guid: cd698cb6719954b45a824dcc73562049, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9054316126784611818, guid: cd698cb6719954b45a824dcc73562049, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9775632

@@ -1,4 +1,6 @@
 ﻿using Assets.Features.Fragments.ScriptableObjectVariables;
+using System.Globalization;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,11 +10,13 @@ namespace Assets.Features.Entities
     {
         [SerializeField]
         private bool debug;
-        public ItemListSO carriableItemsInScene;
+        public ItemPool carriableItemsInScene;
 
         public Transform itemAnchorPoint;
 
-        private NetworkVariable<int> carriedItem = new();
+        private NetworkVariable<int> carriedItemId = new();
+
+        private Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -23,7 +27,7 @@ namespace Assets.Features.Entities
 
         private void PerformAction()
         {
-            if (carriedItem.Value == -1)
+            if (carriedItemId.Value == -1)
             {
                 PerformPickupRpc();
                 return;
@@ -33,11 +37,23 @@ namespace Assets.Features.Entities
 
         }
 
+        public override void OnNetworkSpawn()
+        {
+            carriedItemId.OnValueChanged += OnCarriedItemIdUpdate;
+            carriedItemId.Value = -1;
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            carriedItemId.OnValueChanged -= OnCarriedItemIdUpdate;
+        }
+
         [Rpc(SendTo.Server)]
         private void PerformPickupRpc()
         {
-            if (debug) Debug.Log($"{carriableItemsInScene.GetList().Count} items in scene", gameObject);
-            var existingItems = carriableItemsInScene.GetList();
+            if (debug) Debug.Log($"{carriableItemsInScene.Count()} items in scene", gameObject);
+            var existingItems = carriableItemsInScene.ToList();
+            if (debug) Debug.Log($"{existingItems.Count} : {transform.position}");
             existingItems = GameHelpers.SortByDistance(existingItems, transform.position);
             foreach (var item in existingItems)
             {
@@ -46,7 +62,7 @@ namespace Assets.Features.Entities
                 if (debug) Debug.Log($"Distance between {gameObject.name} and {item.name}: {distance} (required: {GameHelpers.DetectionRange})", gameObject);
                 if (distance <= GameHelpers.DetectionRange)
                 {
-                    carriedItem.Value = item.PickUp().Id;
+                    carriedItemId.Value = item.PickUp().Id;
                     item.transform.SetParent(itemAnchorPoint);
                     if (debug) Debug.Log($"Carrying {item.name}", gameObject);
                     break;
@@ -54,22 +70,22 @@ namespace Assets.Features.Entities
             }
         }
 
-        private void OnCarriedItemUpdate(Item prev, Item next)
+        private void OnCarriedItemIdUpdate(int prev, int next)
         {
-            if(next != null)
+            if(next <0 )
             {
-                
+                if (debug) Debug.Log($"Carried item is null (id {next})", gameObject);
                 return;
             }
+            if (debug) Debug.Log($"Carried item is not null (id {next})", gameObject);
         }
 
         [Rpc(SendTo.Server)]
         private void PerformPutDownRpc()
         {
-            //if (debug) Debug.Log($"Putting {carriedItem.Value.name} down.", gameObject);
-            //carriedItem.Value.transform.SetParent(null);
-            //carriedItem.Value.PutDown();
-            //carriedItem.Value = null;
+            if (debug) Debug.Log($"Putting {carriedItem.name} down.", gameObject);
+            
+            carriedItemId.Value = -1;
         }
     }
 }
