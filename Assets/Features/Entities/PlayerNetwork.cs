@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -6,27 +5,31 @@ using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
+    [SerializeField]
     private NetworkVariable<Color> playerColor = new();
-    private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Server);
+    [SerializeField]
+    private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Owner);
     [SerializeField]
     private TextMeshProUGUI _tag;
-    private NetworkVariable<int> playerNumber = new(1, writePerm: NetworkVariableWritePermission.Server);
+
     public override void OnNetworkSpawn()
     {
+
         playerColor.OnValueChanged += OnColorChange;
         playerName.OnValueChanged += OnTextChange;
-
+        if (IsServer)
+        {
+            playerColor.Value = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        }
         if (IsLocalPlayer)
         {
             GetPositionRpc();
-            GetNameRpc();
+            playerName.Value = $"Player {NetworkManager.Singleton.LocalClientId+1}";
         }
-        if (IsServer)
-        {
-            playerColor.Value = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        }
+
         OnTextChange(playerName.Value, playerName.Value);
         OnColorChange(playerColor.Value, playerColor.Value);
+        Debug.Log($"Player spawned at {NetworkSingleton.Instance.Time.Value} s");
     }
 
     public override void OnNetworkDespawn()
@@ -46,28 +49,18 @@ public class PlayerNetwork : NetworkBehaviour
         GetComponentInChildren<MeshRenderer>().material.color = next;
     }
 
+    private void OnNumberChange(byte previous, byte next)
+    {
+        var newName = $"Player {next}";
+        playerName.Value = newName;
+    }
+
     [Rpc(SendTo.Server)]
     private void GetPositionRpc()
     {
-        var playerPosition = new Vector3(UnityEngine.Random.Range(transform.position.x - 1.5f, transform.position.x + 1.5f), transform.position.y, UnityEngine.Random.Range(transform.position.z - 1.5f, transform.position.z + 1.5f));
-
+        var playerPosition = new Vector3(Random.Range(transform.position.x - 1.5f, transform.position.x + 1.5f), transform.position.y, Random.Range(transform.position.z - 1.5f, transform.position.z + 1.5f));
         if (!IsHost) transform.position = playerPosition;
-
         SetPositionRpc(playerPosition);
-    }
-
-    [Rpc(SendTo.Server)]
-    private void GetNameRpc()
-    {
-        var newName = $"Player {NetworkSingleton.Instance.playerId.Value}";
-        playerName.Value = newName;
-        NetworkSingleton.Instance.IncreaseRpc();
-    }
-
-    [Rpc(SendTo.ClientsAndHost)]
-    private void SetNameRpc()
-    {
-
     }
 
     [Rpc(SendTo.ClientsAndHost)]

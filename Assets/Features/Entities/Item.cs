@@ -19,7 +19,7 @@ namespace Assets.Features.Entities
         public NetworkVariable<bool> isCarried = new();
         public FloatVariableSO weight;
 
-        public int Id { get; set; } = -2;
+        public sbyte Id { get; set; } = -2;
 
         private void OnEnable()
         {

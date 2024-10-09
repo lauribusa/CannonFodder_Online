@@ -1,7 +1,6 @@
 ﻿using Assets.Features.Fragments.ScriptableObjectVariables;
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace Assets.Features.Entities
 {
@@ -14,7 +13,7 @@ namespace Assets.Features.Entities
         public Transform itemAnchorPoint;
 
         [SerializeField]
-        private NetworkVariable<int> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
+        private NetworkVariable<sbyte> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
 
         private Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
         private void Update()
@@ -76,7 +75,7 @@ namespace Assets.Features.Entities
         }
 
         [Rpc(SendTo.Server)]
-        private void SetItemParentServerSideRpc(int id)
+        private void SetItemParentServerSideRpc(sbyte id)
         {
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
@@ -89,7 +88,7 @@ namespace Assets.Features.Entities
         }
 
         [Rpc(SendTo.ClientsAndHost)]
-        private void SetItemParentRpc(int id)
+        private void SetItemParentRpc(sbyte id)
         {
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
@@ -97,14 +96,14 @@ namespace Assets.Features.Entities
         }
 
         [Rpc(SendTo.Server)]
-        private void SetCarriedItemRpc(int id)
+        private void SetCarriedItemRpc(sbyte id)
         {
             carriedItemId.Value = id;
             var item = carriableItemsInScene.Get(id);
             item.transform.SetParent(transform);
         }
 
-        private void OnCarriedItemIdUpdate(int prev, int next)
+        private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
         {
             if (next < 0)
             {
