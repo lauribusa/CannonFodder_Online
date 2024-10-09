@@ -16,11 +16,11 @@ namespace Assets.Features.Entities
         public void PushedBy(Collision collision)
         {
             if (!IsServer) return;
-            if (!collision.gameObject.TryGetComponent(out PlayerMovement playerMovement)) return;
+            if (!collision.gameObject.TryGetComponent(out ICanPush pusher)) return;
 
             Vector3 direction = collision.GetContact(0).normal.normalized;
             direction.y = 0;
-            Vector3 forceDirection = direction * playerMovement.PushingForce;
+            Vector3 forceDirection = direction * pusher.PushingForce;
             HandleCollisionServerRpc(forceDirection);
         }
 
