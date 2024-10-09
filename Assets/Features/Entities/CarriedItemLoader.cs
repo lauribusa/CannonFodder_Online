@@ -19,10 +19,22 @@ namespace Assets.Features.Entities
         {
             if (!GUILayout.Button("Load item")) return;
 
-            Load(_itemTest);
+            LoadItem(_itemTest);
         }
 
-        public void Load(Item item)
+        [Rpc(SendTo.Server)]
+        private void LoadItemServerRpc()
+        {
+            
+        }
+
+        [Rpc(SendTo.Owner)]
+        private void LoadItemClientRpc()
+        {
+
+        }
+
+        private void LoadItem(Item item)
         {
             var itemTransform = item.transform;
             itemTransform.SetParent(_anchorPoint);
