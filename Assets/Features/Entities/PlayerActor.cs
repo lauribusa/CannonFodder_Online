@@ -7,6 +7,8 @@ namespace Assets.Features.Entities
     public class PlayerActor : NetworkBehaviour
     {
         [SerializeField]
+        private NetworkServerSide server;
+        [SerializeField]
         private bool debug;
         public ItemPool carriableItemsInScene;
 
@@ -33,7 +35,6 @@ namespace Assets.Features.Entities
             }
 
             PerformPutDownRpc();
-
         }
 
         public override void OnNetworkSpawn()
@@ -67,40 +68,19 @@ namespace Assets.Features.Entities
                     var id = item.Id;
                     SetCarriedItemRpc(id);
                     item.PickUp();
-                    SetItemParentServerSideRpc(id);
+                    server.SetItemParentServerSideRpc(id);
                     if (debug) Debug.Log($"Carrying {item.name}", gameObject);
                     break;
                 }
             }
         }
 
-        [Rpc(SendTo.Server)]
-        private void SetItemParentServerSideRpc(sbyte id)
-        {
-            var item = carriableItemsInScene.Get(id);
-            if (item == null) return;
-            if (!IsHost)
-            {
-                SetItemParentRpc(id);
-                return;
-            }
-            item.transform.localPosition = new Vector3(0, 1, 1);
-        }
-
         [Rpc(SendTo.ClientsAndHost)]
-        private void SetItemParentRpc(sbyte id)
+        public void SetItemParentRpc(sbyte id)
         {
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
             item.transform.localPosition = new Vector3(0, 1, 1);
-        }
-
-        [Rpc(SendTo.Server)]
-        private void SetCarriedItemRpc(sbyte id)
-        {
-            carriedItemId.Value = id;
-            var item = carriableItemsInScene.Get(id);
-            item.transform.SetParent(transform);
         }
 
         private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
@@ -114,12 +94,21 @@ namespace Assets.Features.Entities
         }
 
         [Rpc(SendTo.Server)]
-        private void PerformPutDownRpc()
+        public void SetCarriedItemRpc(sbyte id)
+        {
+            carriedItemId.Value = id;
+            var item = carriableItemsInScene.Get(id);
+            item.transform.SetParent(transform);
+        }
+
+        [Rpc(SendTo.Server)]
+        public void PerformPutDownRpc()
         {
             if (debug) Debug.Log($"Putting {carriedItem.name} ({carriedItemId.Value}) down. Performed by {gameObject.name}", gameObject);
             carriedItem.PutDown();
             carriedItem.transform.SetParent(null);
             carriedItemId.Value = -1;
         }
+
     }
 }

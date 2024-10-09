@@ -1,3 +1,5 @@
+using Assets.Features.Entities;
+using Assets.Features.Fragments.ScriptableObjectEvents;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -6,11 +8,16 @@ using UnityEngine;
 public class PlayerNetwork : NetworkBehaviour
 {
     [SerializeField]
+    private NetworkServerSide server;
+    [SerializeField]
     private NetworkVariable<Color> playerColor = new();
     [SerializeField]
     private NetworkVariable<FixedString128Bytes> playerName = new(writePerm: NetworkVariableWritePermission.Owner);
     [SerializeField]
     private TextMeshProUGUI _tag;
+
+    public VoidEventSO onSingletonSpawned;
+    public VoidEventSO onSingletonDestroyed;
 
     public override void OnNetworkSpawn()
     {
@@ -29,13 +36,16 @@ public class PlayerNetwork : NetworkBehaviour
 
         OnTextChange(playerName.Value, playerName.Value);
         OnColorChange(playerColor.Value, playerColor.Value);
-        Debug.Log($"Player spawned at {NetworkSingleton.Instance.Time.Value} s");
+
+        onSingletonSpawned.Trigger();
+        Debug.Log($"Player spawned at {server.Time.Value} s");
     }
 
     public override void OnNetworkDespawn()
     {
         playerColor.OnValueChanged -= OnColorChange;
         playerName.OnValueChanged -= OnTextChange;
+        onSingletonDestroyed.Trigger();
     }
 
     private void OnTextChange(FixedString128Bytes previous, FixedString128Bytes newValue)

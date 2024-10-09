@@ -285,6 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: {fileID: 8762909506392664277}
   onNetworkSpawned: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
+  onNetworkDespawned: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
 --- !u!1 &1465534771
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +682,10 @@ PrefabInstance:
       propertyPath: onSingletonSpawned
       value: 
       objectReference: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
+    - target: {fileID: 7042354126606583084, guid: 55757d94226c6ca419301c7cd7069a73, type: 3}
+      propertyPath: onSingletonDestroyed
+      value: 
+      objectReference: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
     - target: {fileID: 7802627539242229607, guid: 55757d94226c6ca419301c7cd7069a73, type: 3}
       propertyPath: m_Name
       value: Singleton
