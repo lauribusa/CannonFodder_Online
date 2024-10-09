@@ -1,3 +1,4 @@
+using Assets.Features.Fragments.ScriptableObjectEvents;
 using Unity.Netcode;
 
 public class NetworkSingleton : NetworkBehaviour
@@ -8,6 +9,7 @@ public class NetworkSingleton : NetworkBehaviour
     public NetworkVariable<int> Time = new();
     private float timer = 1;
     private NetworkVariable<bool> isRunning = new();
+    public VoidEventSO onSingletonSpawned;
 
     private void SetInstance()
     {
@@ -23,9 +25,10 @@ public class NetworkSingleton : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+            SetInstance();
+            onSingletonSpawned.Trigger();
         if (IsServer)
         {
-            SetInstance();
             isRunning.Value = true;
         }
     }
