@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class PositionInterpolator : NetworkBehaviour
 {
-    [SerializeField] private Transform _positionToMove;
+    [SerializeField] private Transform _transformDestination;
+    [SerializeField] private Transform _startTransform;
+
     [SerializeField] private Transform _movingObject;
 
     public event Action Completed;
     public event Action MovedAtStart;
 
-    public bool IsComplete => _movingObject.position == _positionToMove.position;
+    public bool IsComplete => _movingObject.position == _transformDestination.position;
 
-    public bool IsAtStart => _movingObject.position == _transform.position;
+    public bool IsAtStart => _movingObject.position == _startTransform.position;
 
     private Transform _transform;
 
-    private void Awake() => _transform = transform;
-
     private void OnDrawGizmos()
     {
-        if (!_positionToMove) return;
+        if (!_transformDestination || !_startTransform) return;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, _positionToMove.position);
-        Gizmos.DrawSphere(_positionToMove.position, 0.1f);
+        Gizmos.DrawLine(_startTransform.position, _transformDestination.position);
+        Gizmos.DrawSphere(_transformDestination.position, 0.1f);
     }
 
     public void Interpolate(float speed) => InterpolateServerRpc(speed);
@@ -35,7 +35,7 @@ public class PositionInterpolator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void InterpolateClientRpc(float speed)
     {
-        _movingObject.position = Vector3.MoveTowards(_movingObject.position, _positionToMove.position, speed * Time.deltaTime);
+        _movingObject.position = Vector3.MoveTowards(_movingObject.position, _transformDestination.position, speed * Time.deltaTime);
 
         if (IsComplete) return;
 
@@ -50,7 +50,7 @@ public class PositionInterpolator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void InterpolateBackClientRpc(float speed)
     {
-        _movingObject.position = Vector3.MoveTowards(_movingObject.position, _transform.position, speed * Time.deltaTime);
+        _movingObject.position = Vector3.MoveTowards(_movingObject.position, _startTransform.position, speed * Time.deltaTime);
 
         if (IsAtStart) return;
 

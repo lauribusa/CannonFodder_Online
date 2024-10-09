@@ -22,18 +22,6 @@ namespace Assets.Features.Entities
             LoadItem(_itemTest);
         }
 
-        [Rpc(SendTo.Server)]
-        private void LoadItemServerRpc()
-        {
-            
-        }
-
-        [Rpc(SendTo.Owner)]
-        private void LoadItemClientRpc()
-        {
-
-        }
-
         private void LoadItem(Item item)
         {
             var itemTransform = item.transform;
