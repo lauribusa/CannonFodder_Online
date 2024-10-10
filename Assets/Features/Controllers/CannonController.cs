@@ -10,6 +10,7 @@ namespace Assets.Features.Controllers
         [SerializeField] private Transform _elevator;
 
         [SerializeField] private BoolEventSO _BulletLoadedInCannon;
+        [SerializeField] private VoidEventSO _onCannonFireRequested;
         [SerializeField] private VoidEventSO _onCannonFired;
 
         private bool _isBulletLoaded;
@@ -22,9 +23,17 @@ namespace Assets.Features.Controllers
             }
         }
 
-        private void OnEnable() => _BulletLoadedInCannon.Subscribe(OnBulletInCannonChanged);
+        private void OnEnable()
+        {
+            _BulletLoadedInCannon.Subscribe(OnBulletInCannonChanged);
+            _onCannonFireRequested.Subscribe(FireCannon);
+        }
 
-        private void OnDisable() => _BulletLoadedInCannon.Unsubscribe(OnBulletInCannonChanged);
+        private void OnDisable()
+        {
+            _BulletLoadedInCannon.Unsubscribe(OnBulletInCannonChanged);
+            _onCannonFireRequested.Unsubscribe(FireCannon);
+        }
 
         private void OnBulletInCannonChanged(bool isInCannon) => _isBulletLoaded = isInCannon;
 
