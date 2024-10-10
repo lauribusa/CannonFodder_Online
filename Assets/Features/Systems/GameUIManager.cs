@@ -1,4 +1,4 @@
-﻿using Assets.Features.Fragments.ScriptableObjectEvents;
+﻿using Assets.Features.Fragments.ScriptableObjectVariables;
 using TMPro;
 using UnityEngine;
 
@@ -7,37 +7,20 @@ namespace Assets.Features.Systems
     public class GameUIManager: MonoBehaviour
     {
         public TextMeshProUGUI timer;
-        public VoidEventSO onNetworkSpawned;
-        public VoidEventSO onNetworkDespawned;
-
-        
-
+        public FloatVariableSO time;
         private void OnEnable()
         {
-            onNetworkSpawned.Subscribe(SubscribeAction);
-            onNetworkDespawned.Subscribe(UnsubscribeAction);
+            time.Subscribe(OnTimeChanged);
         }
 
         private void OnDisable()
         {
-            onNetworkDespawned.Unsubscribe(UnsubscribeAction);
-            onNetworkSpawned.Unsubscribe(SubscribeAction);
+            time.Unsubscribe(OnTimeChanged);
         }
 
-        public void UnsubscribeAction()
+        public void OnTimeChanged(float time)
         {
-           // NetworkSingleton.Instance.Time.OnValueChanged -= OnTimerUpdate;
-        }
-
-        public void SubscribeAction()
-        {
-           // NetworkSingleton.Instance.Time.OnValueChanged += OnTimerUpdate;
-            onNetworkSpawned.Unsubscribe(SubscribeAction);
-        }
-
-        public void OnTimerUpdate(int prev, int next)
-        {
-            timer.text = next.ToString();
+            timer.SetText(time.ToString());
         }
     }
 }

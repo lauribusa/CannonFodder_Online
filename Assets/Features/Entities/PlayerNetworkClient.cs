@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Assets.Features.Entities
 {
-    public class PlayerActor : NetworkBehaviour
+    public class PlayerNetworkClient : NetworkBehaviour
     {
         [SerializeField]
-        private NetworkServerSide server;
+        private PlayerNetworkServer server;
         [SerializeField]
         private bool debug;
         public ItemPool carriableItemsInScene;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Features.Entities
 {
-    public class NetworkServerSide: NetworkBehaviour
+    public class PlayerNetworkServer: NetworkBehaviour
     {
         public NetworkVariable<bool> isRunning = new();
         public NetworkVariable<byte> playerId = new(0);
@@ -14,6 +14,7 @@ namespace Assets.Features.Entities
         public ItemPool carriableItemsInScene;
         public VoidEventSO onSpawned;
         public VoidEventSO onDespawned;
+        public FloatVariableSO timeSO;
         
         private float timer = 1;
 
@@ -22,7 +23,15 @@ namespace Assets.Features.Entities
             if (IsServer)
             {
                 isRunning.Value = true;
+                
             }
+            Time.OnValueChanged += OnTimeChanged;
+            OnTimeChanged(Time.Value, Time.Value);
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            Time.OnValueChanged -= OnTimeChanged;
         }
 
         private void Update()
@@ -45,6 +54,11 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.Server)]
         public void SetTimeRpc() => Time.Value += 1;
 
+        private void OnTimeChanged(int prev, int next)
+        {
+            timeSO.Value = next;
+        }
+
         [Rpc(SendTo.Server)]
         public void SetItemParentServerSideRpc(sbyte id)
         {
@@ -52,7 +66,7 @@ namespace Assets.Features.Entities
             if (item == null) return;
             if (!IsHost)
             {
-                GetComponent<PlayerActor>().SetItemParentRpc(id);
+                GetComponent<PlayerNetworkClient>().SetItemParentRpc(id);
                 return;
             }
             item.transform.localPosition = new Vector3(0, 1, 1);

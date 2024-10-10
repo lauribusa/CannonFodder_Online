@@ -468,9 +468,10 @@ GameObject:
   - component: {fileID: 9191646383959192521}
   - component: {fileID: 3756157491544233155}
   - component: {fileID: 8170307211077164413}
+  - component: {fileID: 3953862763619289942}
   - component: {fileID: 7586945551401360319}
-  - component: {fileID: 3568892486692658741}
   - component: {fileID: 5241346990133242715}
+  - component: {fileID: 3568892486692658741}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -625,6 +626,29 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 0
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &3953862763619289942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814912854019215777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a00771c542257240b9a0b0347ceaac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  isRunning:
+    m_InternalValue: 0
+  playerId:
+    m_InternalValue: 0
+  Time:
+    m_InternalValue: 0
+  carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
+  onSpawned: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
+  onDespawned: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
+  timeSO: {fileID: 11400000, guid: 12f10198c417a47498648070af449f77, type: 2}
 --- !u!114 &7586945551401360319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,27 +662,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  server: {fileID: 3953862763619289942}
   debug: 1
   carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
   itemAnchorPoint: {fileID: 3355669502648119747}
   carriedItemId:
     m_InternalValue: 0
---- !u!114 &3568892486692658741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8814912854019215777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9b23011091b1e44b7e3bdfd0089ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  _moveSpeed: 80
-  _rotateSpeed: 10
-  <PushingForce>k__BackingField: 15
 --- !u!114 &5241346990133242715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  server: {fileID: 3953862763619289942}
   playerColor:
     m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
   playerName:
@@ -814,3 +824,19 @@ MonoBehaviour:
   _tag: {fileID: 3596469140531989439}
   onSingletonSpawned: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
   onSingletonDestroyed: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
+--- !u!114 &3568892486692658741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8814912854019215777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9b23011091b1e44b7e3bdfd0089ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _moveSpeed: 80
+  _rotateSpeed: 10
+  <PushingForce>k__BackingField: 15
