@@ -190,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   Time:
-    m_InternalValue: 0
+    m_InternalValue: 120
   playerId:
     m_InternalValue: 0
   isRunning:
@@ -198,8 +198,8 @@ MonoBehaviour:
   timeSO: {fileID: 11400000, guid: 12f10198c417a47498648070af449f77, type: 2}
   onPlayerSpawn: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
   onPlayerLeave: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
-  onGameEnd: {fileID: 0}
-  onGameStart: {fileID: 0}
+  onGameEnd: {fileID: 11400000, guid: 2ce786ea8719b804d8091f4dff521b69, type: 2}
+  onGameStart: {fileID: 11400000, guid: 60065dca8f58f1248b44605629ef83e8, type: 2}
 --- !u!1 &723324505
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,13 +673,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1855572929}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.41333693, y: 0.18889607, z: -0.088083684, w: 0.886404}
-  m_LocalPosition: {x: 4.57, y: 11.69, z: 0}
+  m_LocalRotation: {x: 0, y: -0.8870109, z: 0.46174863, w: 0}
+  m_LocalPosition: {x: 5, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: 24.06, z: 0}
+  m_LocalEulerAnglesHint: {x: 55, y: -180, z: 0}
 --- !u!114 &1855572932
 MonoBehaviour:
   m_ObjectHideFlags: 0

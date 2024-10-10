@@ -6,21 +6,21 @@ namespace Assets.Features.Systems
 {
     public class GameUIManager: MonoBehaviour
     {
-        public TextMeshProUGUI timer;
-        public FloatVariableSO time;
+        public TextMeshProUGUI text;
+        public FloatVariableSO value;
         private void OnEnable()
         {
-            time.Subscribe(OnTimeChanged);
+            value.Subscribe(OnValueChanged);
         }
 
         private void OnDisable()
         {
-            time.Unsubscribe(OnTimeChanged);
+            value.Unsubscribe(OnValueChanged);
         }
 
-        public void OnTimeChanged(float time)
+        public void OnValueChanged(float val)
         {
-            timer.SetText(time.ToString());
+            text.SetText(val.ToString());
         }
     }
 }

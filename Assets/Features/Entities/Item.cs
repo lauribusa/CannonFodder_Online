@@ -3,11 +3,13 @@ using Assets.Features.Interfaces;
 using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace Assets.Features.Entities
 {
     public class Item : NetworkBehaviour, IEquatable<Item>, IPoolItem
     {
+        public PositionConstraint constraint;
         [SerializeField]
         private bool debug;
         [SerializeField]

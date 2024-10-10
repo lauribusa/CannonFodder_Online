@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 6983265641175836950}
   - component: {fileID: 8768172023958586115}
   - component: {fileID: 4577864049239676311}
+  - component: {fileID: 1071334890600577685}
   m_Layer: 0
   m_Name: CannonShell
   m_TagString: Untagged
@@ -227,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  constraint: {fileID: 1071334890600577685}
   debug: 0
   body: {fileID: 6983265641175836950}
   itemCollider: {fileID: 651059902910157085}
@@ -234,6 +236,24 @@ MonoBehaviour:
   isCarried:
     m_InternalValue: 0
   weight: {fileID: 11400000, guid: d02f23f3987725e41af43ff33d19f232, type: 2}
+--- !u!1818360608 &1071334890600577685
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8104788783434016589}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: -3.56, y: 6.94, z: 2.6}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!1001 &4183909339680744423
 PrefabInstance:
   m_ObjectHideFlags: 0

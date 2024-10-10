@@ -1,12 +1,17 @@
-﻿using Assets.Features.Fragments.ComponentVariables;
+﻿using Assets.Features.Fragments.ComponentEvents;
+using Assets.Features.Fragments.ComponentVariables;
 using Assets.Features.Fragments.ScriptableObjectVariables;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace Assets.Features.Entities
 {
     public class PlayerNetworkClient : NetworkBehaviour
     {
+        [SerializeField]
+        private Transform playerHand;
+        private ConstraintSource _handConstraint;
         [SerializeField]
         private PlayerNetworkServer server;
         [SerializeField]
@@ -21,6 +26,16 @@ namespace Assets.Features.Entities
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
 
         public IntVariable carriedItem_Id;
+
+        #region Events
+        public IntEvent onSetItemParent;
+        #endregion
+
+        private void Awake()
+        {
+            _handConstraint = new ConstraintSource { sourceTransform = playerHand, weight = 1 };
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -78,12 +93,20 @@ namespace Assets.Features.Entities
             }
         }
 
+        private void SetItemParent(int id)
+        {
+            SetItemParentRpc((sbyte)id);
+        }
+
         [Rpc(SendTo.ClientsAndHost)]
         public void SetItemParentRpc(sbyte id)
         {
+            if (!IsOwner) return;
+            Debug.Log($"Setting item parent {id} for {gameObject.name}", gameObject);
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
-            item.transform.localPosition = new Vector3(0, 1, 1);
+            item.constraint.AddSource(_handConstraint);
+            item.constraint.constraintActive = true;
         }
 
         private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
@@ -111,6 +134,8 @@ namespace Assets.Features.Entities
             if (debug) Debug.Log($"Putting {carriedItem.name} ({carriedItemId.Value}) down. Performed by {gameObject.name}", gameObject);
             carriedItem.PutDown();
             carriedItem.transform.SetParent(null);
+            carriedItem.constraint.constraintActive = false;
+            carriedItem.constraint.RemoveSource(0);
             carriedItemId.Value = -1;
         }
 

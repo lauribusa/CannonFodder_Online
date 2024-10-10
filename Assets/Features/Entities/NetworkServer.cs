@@ -7,19 +7,29 @@ namespace Assets.Features.Entities
 {
     internal class NetworkServer : NetworkBehaviour
     {
-        public NetworkVariable<int> Time = new();
+        public NetworkVariable<int> Time = new(120);
         public NetworkVariable<byte> playerId = new(0);
         public NetworkVariable<bool> isRunning = new();
 
         public FloatVariableSO timeSO;
-        
+
         private float timer = 1;
-        
+
         public VoidEventSO onPlayerSpawn;
         public VoidEventSO onPlayerLeave;
 
         public VoidEventSO onGameEnd;
         public VoidEventSO onGameStart;
+
+        private void OnEnable()
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        }
+
+        public void OnClientConnected(ulong id)
+        {
+            
+        }
 
         public override void OnNetworkSpawn()
         {
@@ -43,12 +53,15 @@ namespace Assets.Features.Entities
                 onPlayerLeave.Unsubscribe(OnPlayerDespawn);
                 playerId.OnValueChanged -= OnPlayerCountChanged;
             }
-           
+
             Time.OnValueChanged -= OnTimeChanged;
         }
 
         [Rpc(SendTo.Server)]
-        public void SetTimeRpc() => Time.Value += 1;
+        public void SetTimeRpc()
+        {
+            Time.Value -= 1;
+         }
 
         private void Update()
         {
@@ -64,7 +77,12 @@ namespace Assets.Features.Entities
 
         private void OnTimeChanged(int prev, int next)
         {
-            timeSO.Value = next;
+            var i = next < 0 ? 0 : next;
+            if(next < 0)
+            {
+                Time.Value = i;
+            }
+            timeSO.Value = i;
         }
 
         private void OnPlayerSpawn()

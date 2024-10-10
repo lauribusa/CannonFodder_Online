@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 4539169933703776006}
   - component: {fileID: 1837667640030731075}
   - component: {fileID: 2075953035183142739}
+  - component: {fileID: 7769154856616069197}
   m_Layer: 0
   m_Name: Brush
   m_TagString: Untagged
@@ -234,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  constraint: {fileID: 7769154856616069197}
   debug: 1
   body: {fileID: 2937906440055161595}
   itemCollider: {fileID: 1837667640030731075}
@@ -241,6 +243,24 @@ MonoBehaviour:
   isCarried:
     m_InternalValue: 0
   weight: {fileID: 11400000, guid: 99b452af6b1b03a4e92ed1d637a7cefe, type: 2}
+--- !u!1818360608 &7769154856616069197
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2434695794227877986}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!1 &5266175797645314495
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +274,7 @@ GameObject:
   - component: {fileID: 3788328183808712798}
   - component: {fileID: 428605575604246832}
   - component: {fileID: 6768989619587411912}
+  - component: {fileID: 8011273491844927642}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -363,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  constraint: {fileID: 8011273491844927642}
   debug: 1
   body: {fileID: 2937906440055161595}
   itemCollider: {fileID: 428605575604246832}
@@ -370,6 +392,24 @@ MonoBehaviour:
   isCarried:
     m_InternalValue: 0
   weight: {fileID: 11400000, guid: cf88e599cb156db4e8cc505285f46a96, type: 2}
+--- !u!1818360608 &8011273491844927642
+PositionConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266175797645314495}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffset: {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_Active: 0
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!1 &9046172317129916406
 GameObject:
   m_ObjectHideFlags: 0
