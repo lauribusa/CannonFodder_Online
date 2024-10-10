@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ScriptableObjectEvent<T> : ScriptableObject, IEvent<T>
 {
-    private FragmentEvent<T> _event;
+    private FragmentEvent<T> _event = new();
 
     public void Subscribe(Action<T> action)
     {
