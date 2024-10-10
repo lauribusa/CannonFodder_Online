@@ -16,6 +16,10 @@ namespace Assets.Features.Entities
             Debug.Log($"Asking item {id} from {gameObject.name}", gameObject);
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
+            if (IsLocalPlayer) Debug.Log($"LOCALPLAYER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
+            if (IsOwner) Debug.Log($"OWNER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
+            if (IsClient) Debug.Log(($"CLIENT: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}"));
+            if (IsServer) Debug.Log($"SERVER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
             if (IsOwner)
             {
                 GetComponent<PlayerNetworkClient>().SetItemParentRpc(id);

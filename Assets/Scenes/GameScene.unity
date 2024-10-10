@@ -189,6 +189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  Score:
+    m_InternalValue: 0
   Time:
     m_InternalValue: 120
   playerId:
@@ -196,10 +198,12 @@ MonoBehaviour:
   isRunning:
     m_InternalValue: 0
   timeSO: {fileID: 11400000, guid: 12f10198c417a47498648070af449f77, type: 2}
+  scoreSO: {fileID: 11400000, guid: 460291be48ca5594f95d0982568dcd20, type: 2}
   onPlayerSpawn: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
   onPlayerLeave: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
   onGameEnd: {fileID: 11400000, guid: 2ce786ea8719b804d8091f4dff521b69, type: 2}
   onGameStart: {fileID: 11400000, guid: 60065dca8f58f1248b44605629ef83e8, type: 2}
+  onScored: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
 --- !u!1 &723324505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1012,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1598137303320767951, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1598137303320767951, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1097,6 +1105,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3433856330660043046, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433856330660043046, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3433856330660043046, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
@@ -1245,6 +1257,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9141655671361882603, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141655671361882603, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9141655671361882603, guid: ac43c94a53ec0f840952bd6cc67f2da3, type: 3}
