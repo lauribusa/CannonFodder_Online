@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8988821797281432866}
-  - component: {fileID: 3919419931003233110}
   - component: {fileID: 4292070817855796289}
+  - component: {fileID: 3919419931003233110}
   m_Layer: 0
   m_Name: Valve
   m_TagString: Untagged
@@ -34,23 +34,6 @@ Transform:
   - {fileID: 181738647946675091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3919419931003233110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7757680243151613338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d55ef152df3690643ae364f613a8e50d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  _turnSpeed: 280
-  _valve: {fileID: 181738647946675091}
-  _interpolateSpeed: 1
-  _interpolatedTransform: {fileID: 0}
 --- !u!65 &4292070817855796289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72,6 +55,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: -0.4, z: 1.15}
+--- !u!114 &3919419931003233110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757680243151613338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55ef152df3690643ae364f613a8e50d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _turnSpeed: 280
+  _valve: {fileID: 181738647946675091}
+  _interpolateSpeed: 1
+  _interpolatedTransform: {fileID: 0}
 --- !u!1001 &364531170755421304
 PrefabInstance:
   m_ObjectHideFlags: 0
