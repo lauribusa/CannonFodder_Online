@@ -1,5 +1,4 @@
 ﻿using Assets.Features.Entities;
-using Assets.Features.Fragments.ScriptableObjectVariables;
 using System;
 using Unity.Netcode;
 using UnityEngine;
@@ -8,7 +7,6 @@ public class PlayerItemLoader : NetworkBehaviour
 {
     public event Action<Item> ItemLoadingRequested;
 
-    public ItemPool CarriableItemsInScene => _playerActor.carriableItemsInScene;
     public bool IsReadyToloadItem { get; set; }
 
     private PlayerNetworkClient _playerActor;

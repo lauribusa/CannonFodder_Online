@@ -9,15 +9,7 @@ public class Valve : NetworkBehaviour
     [SerializeField] private float _interpolateSpeed = 5;
     [SerializeField] private PositionInterpolator _interpolatedTransform;
 
-    private void Update()
-    {
-        //TODO: delete this
-        if (Input.GetKey(KeyCode.C)) TurnValve();
-
-        if (Input.GetKey(KeyCode.V)) TurnValveReverse();
-    }
-
-    private void TurnValve() => TurnValveServerRpc();
+    public void TurnValve() => TurnValveServerRpc();
 
     [Rpc(SendTo.Server)]
     private void TurnValveServerRpc() => TurnValveClientRpc();
@@ -29,7 +21,7 @@ public class Valve : NetworkBehaviour
         _interpolatedTransform.Interpolate(_interpolateSpeed);
     }
 
-    private void TurnValveReverse() => TurnValveReverseServerRpc();
+    public void TurnValveReverse() => TurnValveReverseServerRpc();
 
     [Rpc(SendTo.Server)]
     private void TurnValveReverseServerRpc() => TurnValveReverseClientRpc();
