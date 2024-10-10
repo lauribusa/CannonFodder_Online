@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8777349992610001063}
+  - component: {fileID: 7201075518434481192}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 7943410850113676447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7201075518434481192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708566766038053303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90d06bed7578a84fb1b149a2e1a1e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotator: {fileID: 7943410850113676447}
+  _elevator: {fileID: 3244829911783775586}
+  _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
+  _onCannonFired: {fileID: 11400000, guid: c82d4101e2ab26f4d8b1bf3ef2b9e894, type: 2}
 --- !u!1 &2293519967437537188
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3244829911783775586}
   m_Layer: 0
-  m_Name: CannonAngle
+  m_Name: CannonElevator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

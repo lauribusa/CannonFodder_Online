@@ -389,6 +389,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
   _anchorPoint: {fileID: 807644517449613422}
+  _onLoadingCarCompleted: {fileID: 11400000, guid: 73930926a8d6fe1449c887664ed69ced, type: 2}
+  _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
 --- !u!1 &8757662168207270744
 GameObject:
   m_ObjectHideFlags: 0

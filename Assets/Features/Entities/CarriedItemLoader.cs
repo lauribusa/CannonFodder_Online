@@ -1,3 +1,4 @@
+using Assets.Features.Fragments.ScriptableObjectEvents;
 using Assets.Features.Fragments.ScriptableObjectVariables;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,7 +10,14 @@ namespace Assets.Features.Entities
         [SerializeField] ItemPool _carriableItemsInScene;
         [SerializeField] private Transform _anchorPoint;
 
+        [SerializeField] private VoidEventSO _onLoadingCarCompleted;
+        [SerializeField] private BoolEventSO _BulletLoadedInCannon;
+
         private Item _itemLoaded;
+
+        private void OnEnable() => _onLoadingCarCompleted.Subscribe(OnLoadingCarCompleted);
+
+        private void OnDisable() => _onLoadingCarCompleted.Unsubscribe(OnLoadingCarCompleted);
 
         private void OnTriggerEnter(Collider other)
         {
@@ -54,5 +62,20 @@ namespace Assets.Features.Entities
 
             item.transform.localPosition = Vector3.zero;
         }
+
+        private void OnLoadingCarCompleted()
+        {
+            if (!_itemLoaded) return;
+
+            if (true) //TODO: Check for bullet or powder
+            {
+                _BulletLoadedInCannon.Trigger(true);
+            }
+            
+            DestroyItemServerRpc();
+        }
+
+        [Rpc(SendTo.Server)]
+        private void DestroyItemServerRpc() => _itemLoaded.GetComponent<NetworkObject>().Despawn();
     }
 }

@@ -35,8 +35,8 @@ public class PositionInterpolator : NetworkBehaviour
     {
         _movingObject.position = Vector3.MoveTowards(_movingObject.position, _transformDestination.position, speed * Time.deltaTime);
 
-        if (IsComplete) return;
-
+        if (!IsComplete) return;
+        
         _onLoadingCarCompleted.Trigger();
     }
 
@@ -50,7 +50,7 @@ public class PositionInterpolator : NetworkBehaviour
     {
         _movingObject.position = Vector3.MoveTowards(_movingObject.position, _startTransform.position, speed * Time.deltaTime);
 
-        if (IsAtStart) return;
+        if (!IsAtStart) return;
 
         _onLoadingCarReseted.Trigger();
     }

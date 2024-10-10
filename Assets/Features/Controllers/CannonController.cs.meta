@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: e90d06bed7578a84fb1b149a2e1a1e39
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _rotator: {instanceID: 0}
+  - _elevator: {instanceID: 0}
+  - _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
+  - _onCannonFired: {fileID: 11400000, guid: c82d4101e2ab26f4d8b1bf3ef2b9e894, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f346fc713cfc802439d4843b3928bb04, type: 3}
-  m_Name: OnBulletIsReady
+  m_Script: {fileID: 11500000, guid: 9c26ec07b8c3d5d49a76ab947b3c0e4a, type: 3}
+  m_Name: OnCannonFired
   m_EditorClassIdentifier: 
