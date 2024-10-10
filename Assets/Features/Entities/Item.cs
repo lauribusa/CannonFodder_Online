@@ -7,8 +7,14 @@ using UnityEngine.Animations;
 
 namespace Assets.Features.Entities
 {
+    public enum ItemType
+    {
+        Shell,
+        PowderCharge
+    }
     public class Item : NetworkBehaviour, IEquatable<Item>, IPoolItem
     {
+        public ItemType itemType;
         public PositionConstraint constraint;
         [SerializeField]
         private bool debug;
