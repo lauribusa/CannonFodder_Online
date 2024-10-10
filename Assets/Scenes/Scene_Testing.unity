@@ -2179,6 +2179,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 294250343
       objectReference: {fileID: 0}
+    - target: {fileID: 1019617100995971887, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2862452408
+      objectReference: {fileID: 0}
     - target: {fileID: 1862175776311095670, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2220,6 +2224,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b60b44391c0cf43be2fef5ff748fe9, type: 3}
+--- !u!1001 &2090461069
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4627893368973169798, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2522128674
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627893368973169798, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2044187030
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.3247576
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.7113466
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618375834291437744, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070810171105828197, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
+      propertyPath: m_Name
+      value: CannonPowderCharge
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 758370665ac94534fab0df2941a3de8f, type: 3}
 --- !u!114 &2133871430 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4577864049239676311, guid: 14cb5528408db064ea25e6be48694f2d, type: 3}
@@ -2239,6 +2308,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1770567660049477225, guid: 468e103e61c63ca429afe3a63e966112, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1066033148
+      objectReference: {fileID: 0}
     - target: {fileID: 1915939375692848191, guid: 468e103e61c63ca429afe3a63e966112, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2309,3 +2382,4 @@ SceneRoots:
   - {fileID: 1435956516}
   - {fileID: 963698162}
   - {fileID: 1486854175265823552}
+  - {fileID: 2090461069}
