@@ -38,7 +38,6 @@ public class PlayerNetworkInfo : NetworkBehaviour
         OnColorChange(playerColor.Value, playerColor.Value);
 
         onSingletonSpawned.Trigger();
-        Debug.Log($"Player spawned at {server.Time.Value} s");
     }
 
     public override void OnNetworkDespawn()

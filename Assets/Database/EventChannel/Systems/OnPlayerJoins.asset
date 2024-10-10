@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c26ec07b8c3d5d49a76ab947b3c0e4a, type: 3}
-  m_Name: OnSpawnNetworkSingleton
+  m_Name: OnPlayerJoins
   m_EditorClassIdentifier: 

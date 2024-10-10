@@ -9,9 +9,9 @@ public class PlayerItemLoader : MonoBehaviour
 
     public bool IsReadyToloadItem { get; set; }
 
-    private PlayerActor _playerActor;
+    private PlayerNetworkClient _playerActor;
 
-    private void Awake() => _playerActor = GetComponent<PlayerActor>();
+    private void Awake() => _playerActor = GetComponent<PlayerNetworkClient>();
 
     private void Update()
     {
