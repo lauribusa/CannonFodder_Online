@@ -11,6 +11,7 @@ public class Valve : NetworkBehaviour
 
     private void Update()
     {
+        //TODO: delete this
         if (Input.GetKey(KeyCode.C)) TurnValve();
 
         if (Input.GetKey(KeyCode.V)) TurnValveReverse();
