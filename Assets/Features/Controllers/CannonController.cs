@@ -1,3 +1,4 @@
+using Assets.Features.Fragments.ScriptableObjectEvents;
 using UnityEngine;
 
 namespace Assets.Features.Controllers
@@ -6,6 +7,8 @@ namespace Assets.Features.Controllers
     {
         [SerializeField] private Transform _rotator;
         [SerializeField] private Transform _elevator;
+
+        [SerializeField] private BoolEventSO _onBulletLoaded;
 
         public void RotateCannon(float degrees)
         {

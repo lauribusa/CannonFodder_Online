@@ -9,6 +9,8 @@ namespace Assets.Features.Entities
         [SerializeField] ItemPool _carriableItemsInScene;
         [SerializeField] private Transform _anchorPoint;
 
+        private Item _itemLoaded;
+
         private void OnTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out PlayerItemLoader playerItemLoader)) return;
@@ -31,13 +33,26 @@ namespace Assets.Features.Entities
         private void LoadItemServerRpc(sbyte itemID)
         {
             Item item = _carriableItemsInScene.Get(itemID);
-            if (!item) return;
+            if (_itemLoaded || !item) return;
+
+            _itemLoaded = item;
+            item.GetComponent<Rigidbody>().isKinematic = true;
 
             var itemTransform = item.transform;
             itemTransform.SetParent(_anchorPoint);
             itemTransform.SetPositionAndRotation(_anchorPoint);
 
+            LoadItemClientRpc(itemID);
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void LoadItemClientRpc(sbyte itemID)
+        {
+            Item item = _carriableItemsInScene.Get(itemID);
+
             item.GetComponent<Rigidbody>().isKinematic = true;
+
+            item.transform.localPosition = Vector3.zero;
         }
     }
 }
