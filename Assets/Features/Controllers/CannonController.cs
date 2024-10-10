@@ -14,6 +14,7 @@ namespace Assets.Features.Controllers
         [SerializeField] private VoidEventSO _onCannonFired;
 
         private bool _isBulletLoaded;
+        private bool _isPowderLoaded;
 
         private void OnGUI()
         {
