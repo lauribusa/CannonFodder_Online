@@ -2,6 +2,7 @@
 {
     public interface IPoolItem
     {
-        public sbyte Id { get; set; }
+        public sbyte GetId();
+        public void SetId(sbyte itemId);
     }
 }

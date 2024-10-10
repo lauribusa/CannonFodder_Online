@@ -27,17 +27,7 @@ namespace Assets.Features.Entities
         public NetworkVariable<bool> isCarried = new();
         public FloatVariableSO weight;
 
-        public sbyte Id { get; set; } = -2;
-
-        private void OnEnable()
-        {
-            RegisterSelfToItemList();
-        }
-
-        private void OnDisable()
-        {
-            UnregisterSelfFromItemList();
-        }
+        public NetworkVariable<sbyte> Id = new(-2);
 
         private void RegisterSelfToItemList()
         {
@@ -54,6 +44,7 @@ namespace Assets.Features.Entities
 
         public override void OnNetworkSpawn()
         {
+            RegisterSelfToItemList();
             if (body == null && TryGetComponent<Rigidbody>(out var rb))
             {
                 body = rb;
@@ -84,7 +75,7 @@ namespace Assets.Features.Entities
         {
             //if (IsServer) return;
             
-            itemCollider.enabled = false;
+            itemCollider.isTrigger = true;
             body.isKinematic = true;
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
@@ -114,7 +105,7 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.ClientsAndHost)]
         public void PutDownRpc()
         {
-            itemCollider.enabled = true;
+            itemCollider.isTrigger = false;
             body.isKinematic = false;
         }
 
@@ -122,6 +113,16 @@ namespace Assets.Features.Entities
         {
             if (this != other) return false;
             return true;
+        }
+
+        public sbyte GetId()
+        {
+            return Id.Value;
+        }
+
+        public sbyte SetId(sbyte itemId)
+        {
+            Id.Value = itemId;
         }
     }
 }

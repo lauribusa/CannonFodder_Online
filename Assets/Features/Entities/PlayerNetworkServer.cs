@@ -8,24 +8,25 @@ namespace Assets.Features.Entities
     public class PlayerNetworkServer: NetworkBehaviour
     {
         public ItemPool carriableItemsInScene;
-        public VoidEvent setItemParent;
 
         [Rpc(SendTo.Server)]
         public void SetItemParentServerSideRpc(sbyte id)
         {
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
-            if (IsLocalPlayer) Debug.Log($"LOCALPLAYER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
+            if (TryGetComponent<PlayerNetworkClient>(out var client))
+            {
+                if (item == null) return;
+                if (IsLocalPlayer) Debug.Log($"LOCALPLAYER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
+              
+                item.transform.SetParent(client.transform);
+                client.SetItemParentRpc(id);
+            }
+            
             if (IsOwner) Debug.Log($"OWNER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
             if (IsClient) Debug.Log(($"CLIENT: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}"));
             if (IsServer) Debug.Log($"SERVER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
-            if (IsOwner)
-            {
-                if(TryGetComponent<PlayerNetworkClient>(out var client))
-                {
-                    client.SetItemParentRpc(id);
-                }
-            }            
+            if (!IsLocalPlayer) return;
         }
     }
 }

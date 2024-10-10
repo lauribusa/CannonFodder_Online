@@ -97,15 +97,16 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.ClientsAndHost)]
         public void SetItemParentRpc(sbyte id)
         {
+            var item = carriableItemsInScene.Get(id);
+            item.transform.localPosition = _handConstraint.sourceTransform.localPosition;
+            item.constraint.AddSource(_handConstraint);
+            item.constraint.constraintActive = true;
             if (IsLocalPlayer) Debug.Log($"LOCAL PLAYER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
             if (IsOwner) Debug.Log($"OWNER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
             if (IsServer) Debug.Log($"SERVER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
-            if (!IsLocalPlayer) return;
-            Debug.Log($"TO CLIENT: Setting item parent {id} for {gameObject.name}", gameObject);
-            var item = carriableItemsInScene.Get(id);
-            if (item == null) return;
-            item.constraint.AddSource(_handConstraint);
-            item.constraint.constraintActive = true;
+            //if (!IsLocalPlayer) return;
+            if (IsClient) Debug.Log($"CLIENT: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
+
         }
 
         private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
@@ -131,9 +132,17 @@ namespace Assets.Features.Entities
         {
             if (debug) Debug.Log($"Putting {carriedItem.name} ({carriedItemId.Value}) down. Performed by {gameObject.name}", gameObject);
             carriedItem.PutDown();
-            carriedItem.constraint.constraintActive = false;
-            carriedItem.constraint.RemoveSource(0);
+            if(carriedItem.constraint.constraintActive == true && carriedItem.constraint.sourceCount > 0)
+            {
+                carriedItem.constraint.constraintActive = false;
+                carriedItem.constraint.RemoveSource(0);
+            }
             carriedItemId.Value = -1;
+        }
+
+        public ConstraintSource GetConstraintSource()
+        {
+            return _handConstraint;
         }
 
     }

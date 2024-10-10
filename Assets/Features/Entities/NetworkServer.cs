@@ -12,6 +12,8 @@ namespace Assets.Features.Entities
         public NetworkVariable<byte> playerId = new(0);
         public NetworkVariable<bool> isRunning = new();
 
+        public NetworkVariable<byte[]> carriableItemIds = new();
+
         public FloatVariableSO timeSO;
         public FloatVariableSO scoreSO;
 
