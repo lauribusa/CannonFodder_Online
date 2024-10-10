@@ -9,11 +9,12 @@ namespace Assets.Features.Entities
     {
         public NetworkVariable<int> Time = new();
         public NetworkVariable<byte> playerId = new(0);
-
-        private float timer = 1;
-
         public NetworkVariable<bool> isRunning = new();
+
         public FloatVariableSO timeSO;
+        
+        private float timer = 1;
+        
         public VoidEventSO onPlayerSpawn;
         public VoidEventSO onPlayerLeave;
 
@@ -55,11 +56,11 @@ namespace Assets.Features.Entities
 
         private void Update()
         {
-            if (!IsServer || !isRunning.Value) return;
+            if (!IsServer) return;
+            if (!isRunning.Value) return;
             timer -= UnityEngine.Time.deltaTime;
             if (timer <= 0)
             {
-                Debug.Log($"1sec");
                 SetTimeRpc();
                 timer = 1;
             }

@@ -1,4 +1,5 @@
-﻿using Assets.Features.Fragments.ScriptableObjectVariables;
+﻿using Assets.Features.Fragments.ComponentVariables;
+using Assets.Features.Fragments.ScriptableObjectVariables;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ namespace Assets.Features.Entities
         private NetworkVariable<sbyte> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
 
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
+
+        public IntVariable carriedItem_Id;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -85,6 +88,7 @@ namespace Assets.Features.Entities
 
         private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
         {
+            carriedItem_Id.Value = next;
             if (next < 0)
             {
                 if (debug) Debug.Log($"Carried item is null (id {next})", gameObject);

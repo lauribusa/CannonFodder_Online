@@ -16,8 +16,8 @@ public class PlayerNetworkInfo : NetworkBehaviour
     [SerializeField]
     private TextMeshProUGUI _tag;
 
-    public VoidEventSO onSingletonSpawned;
-    public VoidEventSO onSingletonDestroyed;
+    public VoidEventSO onPlayerJoins;
+    public VoidEventSO onPlayerLeaves;
 
     public override void OnNetworkSpawn()
     {
@@ -32,19 +32,19 @@ public class PlayerNetworkInfo : NetworkBehaviour
         {
             GetPositionRpc();
             playerName.Value = $"Player {NetworkManager.Singleton.LocalClientId+1}";
+            onPlayerJoins.Trigger();
         }
 
         OnTextChange(playerName.Value, playerName.Value);
         OnColorChange(playerColor.Value, playerColor.Value);
 
-        onSingletonSpawned.Trigger();
     }
 
     public override void OnNetworkDespawn()
     {
         playerColor.OnValueChanged -= OnColorChange;
         playerName.OnValueChanged -= OnTextChange;
-        onSingletonDestroyed.Trigger();
+        if(IsLocalPlayer) onPlayerLeaves.Trigger();
     }
 
     private void OnTextChange(FixedString128Bytes previous, FixedString128Bytes newValue)
