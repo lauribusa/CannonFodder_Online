@@ -21,7 +21,7 @@ namespace Assets.Features.Entities
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out PlayerItemLoader playerItemLoader)) return;
+            if (!other.TryGetComponent(out PlayerInteraction playerItemLoader)) return;
 
             playerItemLoader.IsReadyToloadItem = true;
             playerItemLoader.ItemLoadingRequested += LoadItem;
@@ -29,7 +29,7 @@ namespace Assets.Features.Entities
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.TryGetComponent(out PlayerItemLoader playerItemLoader)) return;
+            if (!other.TryGetComponent(out PlayerInteraction playerItemLoader)) return;
 
             playerItemLoader.IsReadyToloadItem = false;
             playerItemLoader.ItemLoadingRequested -= LoadItem;

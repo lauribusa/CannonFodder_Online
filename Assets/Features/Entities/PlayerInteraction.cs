@@ -3,7 +3,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerItemLoader : NetworkBehaviour
+public class PlayerInteraction : NetworkBehaviour
 {
     public event Action<Item> ItemLoadingRequested;
 
@@ -11,6 +11,7 @@ public class PlayerItemLoader : NetworkBehaviour
 
     private PlayerNetworkClient _playerNetworkClient;
     private Valve _valve;
+    private FireCannonTrigger _cannonTrigger;
 
     private void Awake() => _playerNetworkClient = GetComponent<PlayerNetworkClient>();
 
@@ -20,22 +21,35 @@ public class PlayerItemLoader : NetworkBehaviour
 
         RequestToLoadItem();
         TurnValve();
+        PushTheButton();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!IsLocalPlayer) return;
-        if (!other.TryGetComponent(out Valve valve)) return;
+        if (other.TryGetComponent(out Valve valve))
+        {
+            _valve = valve;
+        }
 
-        _valve = valve;
+        if (other.TryGetComponent(out FireCannonTrigger cannonTrigger))
+        {
+            _cannonTrigger = cannonTrigger;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (!IsLocalPlayer) return;
-        if (!other.TryGetComponent(out Valve valve)) return;
+        if (other.TryGetComponent(out Valve valve))
+        {
+            _valve = null;
+        }
 
-        _valve = null;
+        if (other.TryGetComponent(out FireCannonTrigger cannonTrigger))
+        {
+            _cannonTrigger = null;
+        }
     }
 
     private void RequestToLoadItem()
@@ -56,5 +70,12 @@ public class PlayerItemLoader : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.C)) _valve.TurnValve();
         if (Input.GetKey(KeyCode.V)) _valve.TurnValveReverse();
+    }
+
+    private void PushTheButton()
+    {
+        if (!_cannonTrigger) return;
+
+        if (Input.GetKeyDown(KeyCode.L)) _cannonTrigger.PushTheButton();
     }
 }
