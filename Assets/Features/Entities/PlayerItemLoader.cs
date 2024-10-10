@@ -9,10 +9,10 @@ public class PlayerItemLoader : NetworkBehaviour
 
     public bool IsReadyToloadItem { get; set; }
 
-    private PlayerNetworkClient _playerActor;
+    private PlayerNetworkClient _playerNetworkClient;
     private Valve _valve;
 
-    private void Awake() => _playerActor = GetComponent<PlayerNetworkClient>();
+    private void Awake() => _playerNetworkClient = GetComponent<PlayerNetworkClient>();
 
     private void Update()
     {
@@ -42,9 +42,12 @@ public class PlayerItemLoader : NetworkBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.L)) return;
         if (!IsReadyToloadItem) return;
-        if (!_playerActor.carriedItem) return;
 
-        ItemLoadingRequested?.Invoke(_playerActor.carriedItem);
+        Item carriedItem = _playerNetworkClient.carriedItem;
+        if (!carriedItem) return;
+
+        _playerNetworkClient.PerformPutDownRpc();
+        ItemLoadingRequested?.Invoke(carriedItem);
     }
 
     private void TurnValve()
