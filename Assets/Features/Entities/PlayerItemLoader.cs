@@ -1,12 +1,14 @@
 ﻿using Assets.Features.Entities;
+using Assets.Features.Fragments.ScriptableObjectVariables;
 using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerItemLoader : MonoBehaviour
+public class PlayerItemLoader : NetworkBehaviour
 {
     public event Action<Item> ItemLoadingRequested;
 
+    public ItemPool CarriableItemsInScene => _playerActor.carriableItemsInScene;
     public bool IsReadyToloadItem { get; set; }
 
     private PlayerNetworkClient _playerActor;
@@ -15,16 +17,10 @@ public class PlayerItemLoader : MonoBehaviour
 
     private void Update()
     {
-        //if (!IsLocalPlayer) return;
-
+        if (!IsLocalPlayer) return;
         if (!Input.GetKeyDown(KeyCode.L)) return;
-        Debug.Log("Press L");
-
         if (!IsReadyToloadItem) return;
-        Debug.Log($"Player ready to load: {IsReadyToloadItem}");
-
         if (!_playerActor.carriedItem) return;
-        Debug.Log($"Player carried item: {_playerActor.carriedItem.name}");
 
         ItemLoadingRequested?.Invoke(_playerActor.carriedItem);
     }

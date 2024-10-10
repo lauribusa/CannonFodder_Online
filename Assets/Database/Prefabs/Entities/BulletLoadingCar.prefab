@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  _carriableItemsInScene: {fileID: 11400000, guid: 036bf2ac0d046ab489e0d9804c0b208e, type: 2}
   _anchorPoint: {fileID: 807644517449613422}
-  _itemTest: {fileID: 0}
 --- !u!1 &8757662168207270744
 GameObject:
   m_ObjectHideFlags: 0

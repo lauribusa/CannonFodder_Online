@@ -18,7 +18,6 @@ namespace Assets.Features.Entities
         private NetworkVariable<sbyte> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
 
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
