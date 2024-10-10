@@ -5,10 +5,10 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerNetwork : NetworkBehaviour
+public class PlayerNetworkInfo : NetworkBehaviour
 {
     [SerializeField]
-    private NetworkServerSide server;
+    private PlayerNetworkServer server;
     [SerializeField]
     private NetworkVariable<Color> playerColor = new();
     [SerializeField]
