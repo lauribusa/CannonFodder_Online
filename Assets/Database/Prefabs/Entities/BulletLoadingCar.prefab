@@ -232,6 +232,8 @@ MonoBehaviour:
   _transformDestination: {fileID: 2879284503549681912}
   _startTransform: {fileID: 7275011945707127674}
   _movingObject: {fileID: 807644517449613422}
+  _onLoadingCarCompleted: {fileID: 11400000, guid: 73930926a8d6fe1449c887664ed69ced, type: 2}
+  _onLoadingCarReseted: {fileID: 11400000, guid: d79abbedd94d39845a5ac5e8e5d7a45c, type: 2}
 --- !u!1 &3843018387952223772
 GameObject:
   m_ObjectHideFlags: 0

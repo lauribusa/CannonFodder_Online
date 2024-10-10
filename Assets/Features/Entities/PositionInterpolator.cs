@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Assets.Features.Fragments.ScriptableObjectEvents;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,8 +9,8 @@ public class PositionInterpolator : NetworkBehaviour
 
     [SerializeField] private Transform _movingObject;
 
-    public event Action Completed;
-    public event Action MovedAtStart;
+    [SerializeField] private VoidEventSO _onLoadingCarCompleted;
+    [SerializeField] private VoidEventSO _onLoadingCarReseted;
 
     public bool IsComplete => _movingObject.position == _transformDestination.position;
 
@@ -37,7 +37,7 @@ public class PositionInterpolator : NetworkBehaviour
 
         if (IsComplete) return;
 
-        Completed?.Invoke();
+        _onLoadingCarCompleted.Trigger();
     }
 
     public void InterpolateBack(float speed) => InterpolateBackServerRpc(speed);
@@ -52,6 +52,6 @@ public class PositionInterpolator : NetworkBehaviour
 
         if (IsAtStart) return;
 
-        MovedAtStart?.Invoke();
+        _onLoadingCarReseted.Trigger();
     }
 }
