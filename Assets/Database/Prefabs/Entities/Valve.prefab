@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8988821797281432866}
   - component: {fileID: 3919419931003233110}
+  - component: {fileID: 4292070817855796289}
   m_Layer: 0
   m_Name: Valve
   m_TagString: Untagged
@@ -45,10 +46,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d55ef152df3690643ae364f613a8e50d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _turnSpeed: 280
   _valve: {fileID: 181738647946675091}
   _interpolateSpeed: 1
   _interpolatedTransform: {fileID: 0}
+--- !u!65 &4292070817855796289
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757680243151613338}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: -0.4, z: 1.15}
 --- !u!1001 &364531170755421304
 PrefabInstance:
   m_ObjectHideFlags: 0
