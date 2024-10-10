@@ -16,8 +16,6 @@ public class PositionInterpolator : NetworkBehaviour
 
     public bool IsAtStart => _movingObject.position == _startTransform.position;
 
-    private Transform _transform;
-
     private void OnDrawGizmos()
     {
         if (!_transformDestination || !_startTransform) return;
