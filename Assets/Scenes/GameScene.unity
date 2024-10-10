@@ -198,6 +198,8 @@ MonoBehaviour:
   timeSO: {fileID: 11400000, guid: 12f10198c417a47498648070af449f77, type: 2}
   onPlayerSpawn: {fileID: 11400000, guid: dc248f9468c80914b9f4a4c55dfe9f02, type: 2}
   onPlayerLeave: {fileID: 11400000, guid: f3e1e7258012e8a4fa277f580cf73e47, type: 2}
+  onGameEnd: {fileID: 0}
+  onGameStart: {fileID: 0}
 --- !u!1 &723324505
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +768,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 248244085745823451, guid: cd698cb6719954b45a824dcc73562049, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2459277139
+      objectReference: {fileID: 0}
     - target: {fileID: 449038292869091663, guid: cd698cb6719954b45a824dcc73562049, type: 3}
       propertyPath: m_LocalScale.x
       value: 100
@@ -834,6 +840,10 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4268315588593192890, guid: cd698cb6719954b45a824dcc73562049, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4103925602
+      objectReference: {fileID: 0}
     - target: {fileID: 5331742626315124018, guid: cd698cb6719954b45a824dcc73562049, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3823683736
@@ -889,6 +899,10 @@ PrefabInstance:
     - target: {fileID: 6998083488191401607, guid: cd698cb6719954b45a824dcc73562049, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1377586967
+      objectReference: {fileID: 0}
+    - target: {fileID: 7749351063214737804, guid: cd698cb6719954b45a824dcc73562049, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3068402435
       objectReference: {fileID: 0}
     - target: {fileID: 7845200907778153137, guid: cd698cb6719954b45a824dcc73562049, type: 3}
       propertyPath: m_LocalRotation.w

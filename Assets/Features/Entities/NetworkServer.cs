@@ -18,23 +18,16 @@ namespace Assets.Features.Entities
         public VoidEventSO onPlayerSpawn;
         public VoidEventSO onPlayerLeave;
 
-        private void OnEnable()
-        {
-            onPlayerSpawn.Subscribe(OnPlayerSpawn);
-            onPlayerLeave.Subscribe(OnPlayerDespawn);
-        }
-
-        private void OnDisable()
-        {
-            onPlayerSpawn.Unsubscribe(OnPlayerSpawn);
-            onPlayerLeave.Unsubscribe(OnPlayerDespawn);
-        }
+        public VoidEventSO onGameEnd;
+        public VoidEventSO onGameStart;
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
                 isRunning.Value = true;
+                onPlayerSpawn.Subscribe(OnPlayerSpawn);
+                onPlayerLeave.Subscribe(OnPlayerDespawn);
                 playerId.OnValueChanged += OnPlayerCountChanged;
             }
 
@@ -46,8 +39,11 @@ namespace Assets.Features.Entities
         {
             if (IsServer)
             {
+                onPlayerSpawn.Unsubscribe(OnPlayerSpawn);
+                onPlayerLeave.Unsubscribe(OnPlayerDespawn);
                 playerId.OnValueChanged -= OnPlayerCountChanged;
             }
+           
             Time.OnValueChanged -= OnTimeChanged;
         }
 
@@ -90,6 +86,16 @@ namespace Assets.Features.Entities
         private void OnPlayerCountChanged(byte prev, byte next)
         {
             Debug.Log($"PlayerCount: {next}");
+        }
+
+        private void OnGameStart()
+        {
+
+        }
+
+        private void OnGameEnd()
+        {
+
         }
 
     }
