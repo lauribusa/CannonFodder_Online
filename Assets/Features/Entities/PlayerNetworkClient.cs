@@ -83,26 +83,25 @@ namespace Assets.Features.Entities
                 if (debug) Debug.Log($"Distance between {gameObject.name} and {item.name}: {distance} (required: {GameHelpers.DetectionRange})", gameObject);
                 if (distance <= GameHelpers.DetectionRange)
                 {
+                    if (!IsLocalPlayer) return;
                     var id = item.Id;
                     SetCarriedItemRpc(id);
                     item.PickUp();
                     server.SetItemParentServerSideRpc(id);
-                    if (debug) Debug.Log($"Carrying {item.name}", gameObject);
+                    if (debug) Debug.Log($"LOCAL FUNC: Setting item parent {id}({item.name}) for {gameObject.name}", gameObject);
                     break;
                 }
             }
         }
 
-        private void SetItemParent(int id)
-        {
-            SetItemParentRpc((sbyte)id);
-        }
-
         [Rpc(SendTo.ClientsAndHost)]
         public void SetItemParentRpc(sbyte id)
         {
-            if (!IsOwner) return;
-            Debug.Log($"Setting item parent {id} for {gameObject.name}", gameObject);
+            if (IsLocalPlayer) Debug.Log($"LOCAL PLAYER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
+            if (IsOwner) Debug.Log($"OWNER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
+            if (IsServer) Debug.Log($"SERVER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
+            if (!IsLocalPlayer) return;
+            Debug.Log($"TO CLIENT: Setting item parent {id} for {gameObject.name}", gameObject);
             var item = carriableItemsInScene.Get(id);
             if (item == null) return;
             item.constraint.AddSource(_handConstraint);
@@ -125,7 +124,6 @@ namespace Assets.Features.Entities
         {
             carriedItemId.Value = id;
             var item = carriableItemsInScene.Get(id);
-            item.transform.SetParent(transform);
         }
 
         [Rpc(SendTo.Server)]
@@ -133,7 +131,6 @@ namespace Assets.Features.Entities
         {
             if (debug) Debug.Log($"Putting {carriedItem.name} ({carriedItemId.Value}) down. Performed by {gameObject.name}", gameObject);
             carriedItem.PutDown();
-            carriedItem.transform.SetParent(null);
             carriedItem.constraint.constraintActive = false;
             carriedItem.constraint.RemoveSource(0);
             carriedItemId.Value = -1;

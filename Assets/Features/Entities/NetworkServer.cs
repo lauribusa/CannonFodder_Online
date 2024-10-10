@@ -7,11 +7,13 @@ namespace Assets.Features.Entities
 {
     internal class NetworkServer : NetworkBehaviour
     {
+        public NetworkVariable<byte> Score = new(0);
         public NetworkVariable<int> Time = new(120);
         public NetworkVariable<byte> playerId = new(0);
         public NetworkVariable<bool> isRunning = new();
 
         public FloatVariableSO timeSO;
+        public FloatVariableSO scoreSO;
 
         private float timer = 1;
 
@@ -20,6 +22,8 @@ namespace Assets.Features.Entities
 
         public VoidEventSO onGameEnd;
         public VoidEventSO onGameStart;
+
+        public VoidEventSO onScored;
 
         private void OnEnable()
         {
@@ -38,11 +42,15 @@ namespace Assets.Features.Entities
                 isRunning.Value = true;
                 onPlayerSpawn.Subscribe(OnPlayerSpawn);
                 onPlayerLeave.Subscribe(OnPlayerDespawn);
+                onGameStart.Subscribe(OnGameStart);
                 playerId.OnValueChanged += OnPlayerCountChanged;
             }
 
+            onScored.Subscribe(OnPlayerScore);
             Time.OnValueChanged += OnTimeChanged;
             OnTimeChanged(Time.Value, Time.Value);
+            Score.OnValueChanged += OnScoreChanged;
+            OnScoreChanged(Score.Value, Score.Value);
         }
 
         public override void OnNetworkDespawn()
@@ -51,10 +59,13 @@ namespace Assets.Features.Entities
             {
                 onPlayerSpawn.Unsubscribe(OnPlayerSpawn);
                 onPlayerLeave.Unsubscribe(OnPlayerDespawn);
+                onGameStart.Unsubscribe(OnGameStart);
                 playerId.OnValueChanged -= OnPlayerCountChanged;
             }
 
+            onScored.Unsubscribe(OnPlayerScore);
             Time.OnValueChanged -= OnTimeChanged;
+            Score.OnValueChanged -= OnScoreChanged;
         }
 
         [Rpc(SendTo.Server)]
@@ -77,12 +88,22 @@ namespace Assets.Features.Entities
 
         private void OnTimeChanged(int prev, int next)
         {
+            
             var i = next < 0 ? 0 : next;
             if(next < 0)
             {
                 Time.Value = i;
             }
             timeSO.Value = i;
+            if(next <= 0 && IsServer)
+            {
+                OnGameEnd();
+            }
+        }
+
+        private void OnScoreChanged(byte prev,  byte next)
+        {
+            scoreSO.Value = next;
         }
 
         private void OnPlayerSpawn()
@@ -93,6 +114,18 @@ namespace Assets.Features.Entities
         private void OnPlayerDespawn()
         {
             DecreasePlayerCountRpc();
+        }
+
+        private void OnPlayerScore()
+        {
+            OnScoreRpc();
+        }
+
+        [Rpc(SendTo.Server)]
+        public void OnScoreRpc()
+        {
+            byte i = (byte)(Score.Value + 1 > byte.MaxValue ? byte.MaxValue : Score.Value + 1);
+            Score.Value = i;
         }
 
         [Rpc(SendTo.Server)]
@@ -108,13 +141,30 @@ namespace Assets.Features.Entities
 
         private void OnGameStart()
         {
+            OnGameStartRpc();
+        }
 
+        [Rpc(SendTo.Server)]
+        private void OnGameStartRpc()
+        {
+            if(!IsServer) return;
+            isRunning.Value = true;
         }
 
         private void OnGameEnd()
         {
-
+            onGameEnd.Trigger();
+            OnGameEndRpc();
         }
 
+        [Rpc(SendTo.Server)]
+        private void OnGameEndRpc()
+        {
+            //if (!IsServer) return;
+            Debug.Log($"Game end");
+            isRunning.Value = false;
+            Time.Value = 120;
+            Score.Value = 0;
+        }
     }
 }
