@@ -17,7 +17,7 @@ namespace Assets.Features.Entities
         [SerializeField]
         private NetworkVariable<sbyte> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
 
-        private Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
+        public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))

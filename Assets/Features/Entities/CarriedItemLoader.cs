@@ -7,12 +7,8 @@ namespace Assets.Features.Entities
 {
     public class CarriedItemLoader : NetworkBehaviour
     {
-        public event Action<sbyte> ItemLoaded;
-
         [SerializeField] ItemPool _carriableItemsInScene;
         [SerializeField] private Transform _anchorPoint;
-
-        public Item _itemTest;
 
         private void OnTriggerEnter(Collider other)
         {

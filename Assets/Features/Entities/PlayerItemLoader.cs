@@ -11,9 +11,9 @@ public class PlayerItemLoader : NetworkBehaviour
     public ItemPool CarriableItemsInScene => _playerActor.carriableItemsInScene;
     public bool IsReadyToloadItem { get; set; }
 
-    private PlayerActor _playerActor;
+    private PlayerNetworkClient _playerActor;
 
-    private void Awake() => _playerActor = GetComponent<PlayerActor>();
+    private void Awake() => _playerActor = GetComponent<PlayerNetworkClient>();
 
     private void Update()
     {
