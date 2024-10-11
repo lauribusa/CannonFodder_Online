@@ -21,7 +21,7 @@ namespace Assets.Features.Entities
         public Transform itemAnchorPoint;
 
         [SerializeField]
-        private NetworkVariable<sbyte> carriedItemId = new(writePerm: NetworkVariableWritePermission.Server);
+        private NetworkVariable<sbyte> carriedItemId = new(-1, writePerm: NetworkVariableWritePermission.Server);
 
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
 
@@ -58,7 +58,7 @@ namespace Assets.Features.Entities
         public override void OnNetworkSpawn()
         {
             carriedItemId.OnValueChanged += OnCarriedItemIdUpdate;
-            carriedItemId.Value = -1;
+            SetCarriedItemRpc(-1);
         }
 
         public override void OnNetworkDespawn()
