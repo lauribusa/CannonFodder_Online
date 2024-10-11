@@ -11,7 +11,7 @@ namespace Assets.Features
         public VoidEventSO onStartClient;
         public VoidEventSO onShutdown;
 
-        private string _ipAddress;
+        private string _ipAddress = "127.0.0.1";
 
         private void OnEnable()
         {
