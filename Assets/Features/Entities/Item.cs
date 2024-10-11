@@ -33,13 +33,15 @@ namespace Assets.Features.Entities
         {
             if (allItems.Has(this)) return;
             allItems.Add(this);
-            if (debug) Debug.Log($"Adding {name} (ID: {Id}) to pool", gameObject);
+            if (debug) Debug.Log($"Adding {name} (ID: {Id.Value}) to pool", gameObject);
+            Id.OnValueChanged += OnIdChange;
         }
 
         private void UnregisterSelfFromItemList()
         {
             if (debug) Debug.Log($"Removing {name} from pool", gameObject);
             allItems.Remove(Id.Value);
+            Id.OnValueChanged -= OnIdChange;
         }
 
         public override void OnNetworkSpawn()
@@ -130,6 +132,11 @@ namespace Assets.Features.Entities
         private void SetIdRpc(sbyte itemId)
         {
             Id.Value = itemId;
+        }
+
+        private void OnIdChange(sbyte prev, sbyte next)
+        {
+            if(debug) Debug.Log($"{gameObject.name} new ID: {next}");
         }
     }
 }
