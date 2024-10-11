@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Features.Systems
 {
-    public class ObjectSpawner: NetworkManager
+    public class ObjectSpawner: NetworkBehaviour
     {
         [SerializeField]
         private GameObjectListSO networkObjectPrefabs;
@@ -17,8 +17,6 @@ namespace Assets.Features.Systems
         private Vector3 minDeviation;
         [SerializeField]
         private Vector3 maxDeviation;
-
-       
 
         [Rpc(SendTo.Server)]
         private void OnSpawnObjectsRpc()
