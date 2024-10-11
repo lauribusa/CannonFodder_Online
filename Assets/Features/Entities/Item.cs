@@ -31,17 +31,17 @@ namespace Assets.Features.Entities
 
         private void RegisterSelfToItemList()
         {
+            Id.OnValueChanged += OnIdChange;
             if (allItems.Has(this)) return;
             allItems.Add(this);
             if (debug) Debug.Log($"Adding {name} (ID: {Id.Value}) to pool", gameObject);
-            Id.OnValueChanged += OnIdChange;
         }
 
         private void UnregisterSelfFromItemList()
         {
+            Id.OnValueChanged -= OnIdChange;
             if (debug) Debug.Log($"Removing {name} from pool", gameObject);
             allItems.Remove(Id.Value);
-            Id.OnValueChanged -= OnIdChange;
         }
 
         public override void OnNetworkSpawn()
