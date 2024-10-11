@@ -59,15 +59,16 @@ public class PlayerInteraction : NetworkBehaviour
     private void RequestToLoadItem()
     {
         if (!IsLocalPlayer) return;
-        if (!Input.GetKeyDown(KeyCode.L)) return;
         if (!IsReadyToloadItem) return;
 
         if (_playerNetworkClient.carriedItem)
         {
+            if (!Input.GetKeyDown(KeyCode.L)) return;
             RequestToLoadItemServerRpc();
         }
         else
         {
+            if (!Input.GetKeyDown(KeyCode.L)) return;
             RequestToUnloadItemServerRpc();
         }
     }

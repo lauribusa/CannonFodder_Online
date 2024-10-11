@@ -65,8 +65,7 @@ namespace Assets.Features.Entities
         {
             if (!_isLoadingCarReseted)
             {
-                _onLoadindCarMustBeReseted.Trigger();
-                Debug.Log("<color=orange>You must reset the loading bullet car</color>");
+                SendWarningOnMustResetLoadingCarClientRpc();
                 return;
             }
 
@@ -106,8 +105,7 @@ namespace Assets.Features.Entities
 
             if (!_isLoadingCarReseted)
             {
-                _onLoadindCarMustBeReseted.Trigger();
-                Debug.Log("<color=orange>You must reset the loading bullet car</color>");
+                SendWarningOnMustResetLoadingCarClientRpc();
                 return;
             }
 
@@ -132,15 +130,13 @@ namespace Assets.Features.Entities
             
             if (IsShell && _isBulletLoaded)
             {
-                _onShellAlreadyLoaded.Trigger();
-                Debug.Log("<color=orange>A shell is already loaded</color>");
+                SendWarningShellAlreadyLoadedClientRpc();
                 return;
             }
 
             if (IsPowderCharge && !_isBulletLoaded)
             {
-                _onMustLoadShellFirst.Trigger();
-                Debug.Log("<color=orange>You must load a shell first</color>");
+                SendWarningMustLoadShellFirstClientRpc();
                 return;
             }
 
@@ -149,6 +145,27 @@ namespace Assets.Features.Entities
             if (IsPowderCharge) _BulletLoadedInCannon.Trigger(true);
 
             DestroyItemServerRpc();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SendWarningOnMustResetLoadingCarClientRpc()
+        {
+            Debug.Log("<color=orange>You must reset the loading bullet car</color>");
+            _onLoadindCarMustBeReseted.Trigger();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SendWarningShellAlreadyLoadedClientRpc()
+        {
+            Debug.Log("<color=orange>A shell is already loaded</color>");
+            _onLoadindCarMustBeReseted.Trigger();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SendWarningMustLoadShellFirstClientRpc()
+        {
+            Debug.Log("<color=orange>You must load a shell first</color>");
+            _onLoadindCarMustBeReseted.Trigger();
         }
 
         [Rpc(SendTo.Server)]
