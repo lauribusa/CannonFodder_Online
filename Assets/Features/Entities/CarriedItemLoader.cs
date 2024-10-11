@@ -158,14 +158,14 @@ namespace Assets.Features.Entities
         private void SendWarningShellAlreadyLoadedClientRpc()
         {
             Debug.Log("<color=orange>A shell is already loaded</color>");
-            _onLoadindCarMustBeReseted.Trigger();
+            _onShellAlreadyLoaded.Trigger();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void SendWarningMustLoadShellFirstClientRpc()
         {
             Debug.Log("<color=orange>You must load a shell first</color>");
-            _onLoadindCarMustBeReseted.Trigger();
+            _onMustLoadShellFirst.Trigger();
         }
 
         [Rpc(SendTo.Server)]
