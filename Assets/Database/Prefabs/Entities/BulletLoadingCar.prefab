@@ -589,6 +589,9 @@ MonoBehaviour:
   _onLoadingCarReseted: {fileID: 11400000, guid: d79abbedd94d39845a5ac5e8e5d7a45c, type: 2}
   _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
   _onCannonFired: {fileID: 11400000, guid: c82d4101e2ab26f4d8b1bf3ef2b9e894, type: 2}
+  _onLoadindCarMustBeReseted: {fileID: 11400000, guid: 72c4982911a09e94e946a38713d82333, type: 2}
+  _onShellAlreadyLoaded: {fileID: 11400000, guid: c8fad07108ab5c240b1bd0084d0ebf4c, type: 2}
+  _onMustLoadShellFirst: {fileID: 11400000, guid: 5c544230c090ca143a1624bdefbd68a7, type: 2}
 --- !u!1 &8757662168207270744
 GameObject:
   m_ObjectHideFlags: 0

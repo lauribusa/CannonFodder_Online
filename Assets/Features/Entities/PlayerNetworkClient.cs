@@ -23,6 +23,9 @@ namespace Assets.Features.Entities
         [SerializeField]
         private NetworkVariable<sbyte> carriedItemId = new(-1, writePerm: NetworkVariableWritePermission.Server);
 
+        [SerializeField]
+        private float _detectionRange = 3.5f;
+
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
 
         #region Events
@@ -82,7 +85,7 @@ namespace Assets.Features.Entities
             {
                 if (item.isCarried.Value) continue;
                 var distance = Vector3.Distance(transform.position, item.transform.position);
-                if (distance <= GameHelpers.DetectionRange)
+                if (distance <= _detectionRange)
                 {
                     if (!IsLocalPlayer) return;
                     var id = item.Id;

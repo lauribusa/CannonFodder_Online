@@ -15,6 +15,10 @@ namespace Assets.Features.Entities
         [SerializeField] private BoolEventSO _BulletLoadedInCannon;
         [SerializeField] private VoidEventSO _onCannonFired;
 
+        [SerializeField] private VoidEventSO _onLoadindCarMustBeReseted;
+        [SerializeField] private VoidEventSO _onShellAlreadyLoaded;
+        [SerializeField] private VoidEventSO _onMustLoadShellFirst;
+
         private Item _itemLoaded;
         private bool _isLoadingCarReseted = true;
         private bool _isBulletLoaded;
@@ -61,6 +65,7 @@ namespace Assets.Features.Entities
         {
             if (!_isLoadingCarReseted)
             {
+                _onLoadindCarMustBeReseted.Trigger();
                 Debug.Log("<color=orange>You must reset the loading bullet car</color>");
                 return;
             }
@@ -101,6 +106,7 @@ namespace Assets.Features.Entities
 
             if (!_isLoadingCarReseted)
             {
+                _onLoadindCarMustBeReseted.Trigger();
                 Debug.Log("<color=orange>You must reset the loading bullet car</color>");
                 return;
             }
@@ -126,12 +132,14 @@ namespace Assets.Features.Entities
             
             if (IsShell && _isBulletLoaded)
             {
+                _onShellAlreadyLoaded.Trigger();
                 Debug.Log("<color=orange>A shell is already loaded</color>");
                 return;
             }
 
             if (IsPowderCharge && !_isBulletLoaded)
             {
+                _onMustLoadShellFirst.Trigger();
                 Debug.Log("<color=orange>You must load a shell first</color>");
                 return;
             }
