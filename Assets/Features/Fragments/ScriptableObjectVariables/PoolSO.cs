@@ -70,6 +70,11 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
             OnPoolUpdated?.Invoke(lookups);
         }
 
+        public void Remove(sbyte id)
+        {
+            Remove(id);
+        }
+
         public void Subscribe(Action<Dictionary<int, T>> onListUpdated)
         {
             OnPoolUpdated += onListUpdated;

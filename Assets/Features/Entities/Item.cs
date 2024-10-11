@@ -39,7 +39,7 @@ namespace Assets.Features.Entities
         private void UnregisterSelfFromItemList()
         {
             if (debug) Debug.Log($"Removing {name} from pool", gameObject);
-            allItems.Remove(Id);
+            allItems.Remove(Id.Value);
         }
 
         public override void OnNetworkSpawn()
@@ -120,7 +120,7 @@ namespace Assets.Features.Entities
             return Id.Value;
         }
 
-        public sbyte SetId(sbyte itemId)
+        public void SetId(sbyte itemId)
         {
             Id.Value = itemId;
         }

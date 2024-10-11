@@ -52,7 +52,7 @@ namespace Assets.Features.Entities
             playerItemLoader.ItemLoadingRequested -= LoadItem;
         }
 
-        public void LoadItem(Item item) => LoadItemServerRpc(item.Id);
+        public void LoadItem(Item item) => LoadItemServerRpc(item.Id.Value);
 
         [Rpc(SendTo.Server)]
         private void LoadItemServerRpc(sbyte itemID)

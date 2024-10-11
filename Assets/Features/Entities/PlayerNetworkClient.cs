@@ -85,9 +85,9 @@ namespace Assets.Features.Entities
                 {
                     if (!IsLocalPlayer) return;
                     var id = item.Id;
-                    SetCarriedItemRpc(id);
+                    SetCarriedItemRpc(id.Value);
                     item.PickUp();
-                    server.SetItemParentServerSideRpc(id);
+                    server.SetItemParentServerSideRpc(id.Value);
                     if (debug) Debug.Log($"LOCAL FUNC: Setting item parent {id}({item.name}) for {gameObject.name}", gameObject);
                     break;
                 }
