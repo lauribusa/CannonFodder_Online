@@ -16,14 +16,6 @@ namespace Assets.Features.Controllers
         private bool _isBulletLoaded;
         private bool _isPowderLoaded;
 
-        private void OnGUI()
-        {
-            if (GUILayout.Button("Fire cannon"))
-            {
-                FireCannon();
-            }
-        }
-
         private void OnEnable()
         {
             _BulletLoadedInCannon.Subscribe(OnBulletInCannonChanged);
@@ -37,11 +29,6 @@ namespace Assets.Features.Controllers
         }
 
         private void OnBulletInCannonChanged(bool isInCannon) => _isBulletLoaded = isInCannon;
-
-        public void RotateCannon(float degrees)
-        {
-
-        }
 
         public void FireCannon()
         {

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _onCannonFireRequested: {fileID: 0}
+  _onCannonFireRequested: {fileID: 11400000, guid: df44d02dbbbd01d44980ece38267034d, type: 2}
 --- !u!1 &7260820339630623825
 GameObject:
   m_ObjectHideFlags: 0
