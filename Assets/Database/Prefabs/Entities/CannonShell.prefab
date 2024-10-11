@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _onScore: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
-  _intensity: 15
+  _intensity: 80
 --- !u!1001 &4183909339680744423
 PrefabInstance:
   m_ObjectHideFlags: 0
