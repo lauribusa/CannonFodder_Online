@@ -69,12 +69,14 @@ namespace Assets.Features.Entities
                 return;
             }
 
+            // fix that
             _isLoadingCarReseted = false;
 
             Item item = _carriableItemsInScene.Get(itemID);
             if (_itemLoaded || !item) return;
 
             _itemLoaded = item;
+            _itemLoaded.isCarried.Value = true;
 
             item.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -115,6 +117,7 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.Server)]
         private void UnloadItemServerRpc()
         {
+            _itemLoaded.isCarried.Value = false;
             _itemLoaded.transform.SetParent(null);
 
             _itemLoaded.GetComponent<Rigidbody>().isKinematic = false;
