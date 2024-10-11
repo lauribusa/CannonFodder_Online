@@ -887,6 +887,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2690783621154317884, guid: 6b49324c78526e64a946506cce8832bb, type: 3}
+      propertyPath: NetworkConfig.ConnectionApproval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6397087182872012093, guid: 6b49324c78526e64a946506cce8832bb, type: 3}
       propertyPath: m_Name
       value: Scene_Managers
