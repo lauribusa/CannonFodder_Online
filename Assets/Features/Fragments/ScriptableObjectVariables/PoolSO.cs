@@ -72,7 +72,7 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
 
         public void Remove(sbyte id)
         {
-            Remove(id);
+            Remove((int)id);
         }
 
         public void Subscribe(Action<Dictionary<int, T>> onListUpdated)

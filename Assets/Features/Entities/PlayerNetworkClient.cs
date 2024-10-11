@@ -101,10 +101,10 @@ namespace Assets.Features.Entities
             //item.transform.localPosition = _handConstraint.sourceTransform.localPosition;
             //item.constraint.AddSource(_handConstraint);
             //item.constraint.constraintActive = true;
+            //if (!IsLocalPlayer) return;
             if (IsLocalPlayer) Debug.Log($"LOCAL PLAYER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
             if (IsOwner) Debug.Log($"OWNER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
             if (IsServer) Debug.Log($"SERVER: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
-            //if (!IsLocalPlayer) return;
             if (IsClient) Debug.Log($"CLIENT: SET_ITEM_PARENT_RPC FROM {gameObject.name}: {id}", gameObject);
 
         }
