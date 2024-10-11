@@ -55,9 +55,9 @@ namespace Assets.Features.Entities
                 onPlayerLeave.Subscribe(OnPlayerDespawn);
                 onGameStart.Subscribe(OnGameStart);
                 playerId.OnValueChanged += OnPlayerCountChanged;
+                onScored.Subscribe(OnPlayerScore);
             }
 
-            onScored.Subscribe(OnPlayerScore);
             Time.OnValueChanged += OnTimeChanged;
             OnTimeChanged(Time.Value, Time.Value);
             Score.OnValueChanged += OnScoreChanged;
@@ -72,9 +72,9 @@ namespace Assets.Features.Entities
                 onPlayerLeave.Unsubscribe(OnPlayerDespawn);
                 onGameStart.Unsubscribe(OnGameStart);
                 playerId.OnValueChanged -= OnPlayerCountChanged;
+                onScored.Unsubscribe(OnPlayerScore);
             }
 
-            onScored.Unsubscribe(OnPlayerScore);
             Time.OnValueChanged -= OnTimeChanged;
             Score.OnValueChanged -= OnScoreChanged;
         }
