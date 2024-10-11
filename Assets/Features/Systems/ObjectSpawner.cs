@@ -21,7 +21,7 @@ namespace Assets.Features.Systems
        
 
         [Rpc(SendTo.Server)]
-        private void OnSpawnObjects()
+        private void OnSpawnObjectsRpc()
         {
             var index = Random.Range(0, networkObjectPrefabs.GetList().Count);
             var x = Random.Range(minDeviation.x, maxDeviation.x);
