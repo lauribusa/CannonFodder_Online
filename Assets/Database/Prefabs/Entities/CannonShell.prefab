@@ -151,22 +151,22 @@ MonoBehaviour:
   NetworkTransformExpanded: 0
   AuthorityMode: 0
   TickSyncChildren: 0
-  UseUnreliableDeltas: 0
+  UseUnreliableDeltas: 1
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
+  UseHalfFloatPrecision: 1
   InLocalSpace: 0
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  itemType: 0
   constraint: {fileID: 1071334890600577685}
   debug: 0
   body: {fileID: 6983265641175836950}
@@ -236,6 +237,8 @@ MonoBehaviour:
   isCarried:
     m_InternalValue: 0
   weight: {fileID: 11400000, guid: d02f23f3987725e41af43ff33d19f232, type: 2}
+  Id:
+    m_InternalValue: -2
 --- !u!1818360608 &1071334890600577685
 PositionConstraint:
   m_ObjectHideFlags: 0
