@@ -98,13 +98,13 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
         public T Get(int id)
         {
             if (id < 0) return default;
-            return list.First(x => x.GetId() == id);
+            return list.First(x => x.GetId() == (sbyte)id);
             //return lookups[id];
         }
 
         public bool Has(int id)
         {
-            return list.FirstOrDefault(x => x.GetId() == id) != null;
+            return Get(id) != null;
             //return lookups.ContainsKey(id);
         }
 
