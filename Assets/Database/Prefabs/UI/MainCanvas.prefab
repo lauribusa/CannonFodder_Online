@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: leave
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2541,6 +2541,7 @@ GameObject:
   - component: {fileID: 2862111297083068904}
   - component: {fileID: 1484203037704459760}
   - component: {fileID: 8190812256955844629}
+  - component: {fileID: 4978237771869092761}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -2650,10 +2651,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 8b31095281f334d41bd601668f22366c, type: 2}
-        m_TargetAssemblyTypeName: Assets.Features.Fragments.ScriptableObjectEvents.VoidEventSO,
-          Assembly-CSharp
-        m_MethodName: Trigger
+      - m_Target: {fileID: 4978237771869092761}
+        m_TargetAssemblyTypeName: QuitButton, Assembly-CSharp
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2689,6 +2689,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4978237771869092761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772495450736258293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fce16479eb9bfc42a71c3bf7e8dbdf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 1484203037704459760}
 --- !u!1 &7092609269437780256
 GameObject:
   m_ObjectHideFlags: 0
