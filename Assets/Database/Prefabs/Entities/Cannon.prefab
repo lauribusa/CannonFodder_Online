@@ -76,7 +76,7 @@ MonoBehaviour:
   _elevator: {fileID: 3244829911783775586}
   _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
   _onCannonFireRequested: {fileID: 11400000, guid: df44d02dbbbd01d44980ece38267034d, type: 2}
-  _onCannonFired: {fileID: 11400000, guid: c82d4101e2ab26f4d8b1bf3ef2b9e894, type: 2}
+  _onScore: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
 --- !u!1 &2293519967437537188
 GameObject:
   m_ObjectHideFlags: 0

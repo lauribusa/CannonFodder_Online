@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerInteraction : NetworkBehaviour
 {
     public event Action<sbyte> ItemLoadingRequested;
+    public event Action ItemUnloadingRequested;
 
     [SerializeField] ItemPool _carriableItemsInScene;
 
@@ -61,37 +62,30 @@ public class PlayerInteraction : NetworkBehaviour
         if (!Input.GetKeyDown(KeyCode.L)) return;
         if (!IsReadyToloadItem) return;
 
-        RequestToLoadItemServerRpc();
+        if (_playerNetworkClient.carriedItem)
+        {
+            RequestToLoadItemServerRpc();
+        }
+        else
+        {
+            RequestToUnloadItemServerRpc();
+        }
     }
 
     [Rpc(SendTo.Server)]
     private void RequestToLoadItemServerRpc()
     {
         Item carriedItem = _playerNetworkClient.carriedItem;
-        if (!carriedItem) return;
 
         Debug.Log($"<color=yellow>Player is carrying: {_playerNetworkClient.carriedItem.name} ID: {_playerNetworkClient.carriedItem.Id.Value}</color>");
         _playerNetworkClient.PerformPutDownRpc();
 
         Debug.Log($"<color=yellow>BulletLoader has put down: {carriedItem.name} ID: {carriedItem.Id.Value}</color>");
         ItemLoadingRequested?.Invoke(carriedItem.Id.Value);
-        return;
-        RequestToLoadItemClientRpc(carriedItem.Id.Value);
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
-    private void RequestToLoadItemClientRpc(sbyte itemID)
-    {
-        //Item carriedItem = _playerNetworkClient.carriedItem;
-        //if (!carriedItem) return;
-
-        //Debug.Log($"<color=yellow>Player is carrying: {_playerNetworkClient.carriedItem.name} ID: {_playerNetworkClient.carriedItem.Id.Value}</color>");
-        //_playerNetworkClient.PerformPutDownRpc();
-
-        Item carriedItem = _carriableItemsInScene.Get(itemID);
-        Debug.Log($"<color=yellow>BulletLoader has put down: {carriedItem.name} ID: {carriedItem.Id.Value}</color>");
-        ItemLoadingRequested?.Invoke(itemID);
-    }
+    [Rpc(SendTo.Server)]
+    private void RequestToUnloadItemServerRpc() => ItemUnloadingRequested?.Invoke();
 
     private void TurnValve()
     {
