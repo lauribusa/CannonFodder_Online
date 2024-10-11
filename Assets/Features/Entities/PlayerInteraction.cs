@@ -63,12 +63,12 @@ public class PlayerInteraction : NetworkBehaviour
 
         if (_playerNetworkClient.carriedItem)
         {
-            if (!Input.GetKeyDown(KeyCode.L)) return;
+            if (!Input.GetKeyDown(KeyCode.E)) return;
             RequestToLoadItemServerRpc();
         }
         else
         {
-            if (!Input.GetKeyDown(KeyCode.L)) return;
+            if (!Input.GetKeyDown(KeyCode.E)) return;
             RequestToUnloadItemServerRpc();
         }
     }
