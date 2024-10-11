@@ -9,7 +9,7 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
     public class PoolSO<T>: ScriptableObject where T : IPoolItem
     {
         [SerializeField]
-        private int maxId;
+        private sbyte maxId;
 
         private List<int> freeIds = new();
 
@@ -31,6 +31,9 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
         public void Add(T obj)
         {
             list.Add(obj);
+            obj.SetId((sbyte)maxId);
+            maxId++;
+            return;
             if(freeIds.Count > 0)
             {
                 var freedId = freeIds.First();
@@ -98,7 +101,11 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
         public T Get(int id)
         {
             if (id < 0) return default;
-            return list.First(x => x.GetId() == (sbyte)id);
+            return list.FirstOrDefault(x =>
+            {
+                Debug.Log($"{x.GetId()} {x.GetType().Name}");
+                return id == x.GetId();
+            });
             //return lookups[id];
         }
 

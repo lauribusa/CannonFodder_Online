@@ -50,7 +50,7 @@ namespace Assets.Features.Entities
                 return;
             }
 
-            PerformPutDownRpc();
+            PerformPutDown();
         }
 
         public override void OnNetworkSpawn()
@@ -63,9 +63,15 @@ namespace Assets.Features.Entities
         {
             if (carriedItemId.Value >= 0)
             {
-                PerformPutDownRpc();
+                PerformPutDown();
             }
             carriedItemId.OnValueChanged -= OnCarriedItemIdUpdate;
+        }
+
+        private void PerformPutDown()
+        {
+            if (!IsLocalPlayer) return;
+            PerformPutDownRpc();
         }
 
         private void PerformPickup()

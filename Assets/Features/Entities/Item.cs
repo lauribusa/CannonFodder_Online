@@ -125,6 +125,7 @@ namespace Assets.Features.Entities
         public void SetId(sbyte itemId)
         {
             if (!IsServer) return;
+            Debug.Log($"Setting... {itemId}");
             SetIdRpc(itemId);
         }
 
