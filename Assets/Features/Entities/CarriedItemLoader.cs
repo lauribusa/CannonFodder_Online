@@ -69,9 +69,6 @@ namespace Assets.Features.Entities
                 return;
             }
 
-            // fix that
-            _isLoadingCarReseted = false;
-
             Item item = _carriableItemsInScene.Get(itemID);
             if (_itemLoaded || !item) return;
 
@@ -175,6 +172,8 @@ namespace Assets.Features.Entities
         private void DestroyItemServerRpc() => _itemLoaded.GetComponent<NetworkObject>().Despawn();
 
         private void OnCannonFired() => _isBulletLoaded = false;
+
+        public void SetLoadingCarNotReseted() => _isLoadingCarReseted = false;
 
         private void OnLoadingCarReseted() => _isLoadingCarReseted = true;
     }

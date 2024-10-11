@@ -1,9 +1,11 @@
 ﻿using Assets.Features.Fragments.ScriptableObjectEvents;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PositionInterpolator : NetworkBehaviour
 {
+    [SerializeField] private UnityEvent _onInterpolated;
     [SerializeField] private Transform _transformDestination;
     [SerializeField] private Transform _startTransform;
 
@@ -34,6 +36,7 @@ public class PositionInterpolator : NetworkBehaviour
     private void InterpolateClientRpc(float speed)
     {
         _movingObject.position = Vector3.MoveTowards(_movingObject.position, _transformDestination.position, speed * Time.deltaTime);
+        _onInterpolated.Invoke();
 
         if (!IsComplete) return;
         
@@ -49,6 +52,7 @@ public class PositionInterpolator : NetworkBehaviour
     private void InterpolateBackClientRpc(float speed)
     {
         _movingObject.position = Vector3.MoveTowards(_movingObject.position, _startTransform.position, speed * Time.deltaTime);
+        _onInterpolated.Invoke();
 
         if (!IsAtStart) return;
 

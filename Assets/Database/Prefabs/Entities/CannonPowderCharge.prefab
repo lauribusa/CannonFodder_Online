@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 880930650040166500}
   - component: {fileID: 4845482865258425646}
   - component: {fileID: 6172114307484046309}
+  - component: {fileID: 8216907260890732672}
   m_Layer: 0
   m_Name: CannonPowderCharge
   m_TagString: Untagged
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3022063267
+  GlobalObjectIdHash: 2044187030
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -257,6 +258,21 @@ PositionConstraint:
   m_Active: 0
   m_IsLocked: 0
   m_Sources: []
+--- !u!114 &8216907260890732672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9070810171105828197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493d36bfb690e6a4286b7aa9127dca6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _onScore: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
+  _intensity: 20
 --- !u!1001 &2775901497427942540
 PrefabInstance:
   m_ObjectHideFlags: 0
