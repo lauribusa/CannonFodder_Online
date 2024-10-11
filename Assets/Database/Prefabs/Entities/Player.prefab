@@ -818,6 +818,7 @@ MonoBehaviour:
   itemAnchorPoint: {fileID: 3355669502648119747}
   carriedItemId:
     m_InternalValue: -1
+  _detectionRange: 5
   onSetItemParent: {fileID: 5463851985703253504}
 --- !u!114 &5241346990133242715
 MonoBehaviour:

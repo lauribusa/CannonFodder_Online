@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8777349992610001063}
   - component: {fileID: 9081686900927978012}
   - component: {fileID: 7201075518434481192}
+  - component: {fileID: 991103456007558307}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3045237423
+  GlobalObjectIdHash: 1545439253
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -77,6 +78,27 @@ MonoBehaviour:
   _BulletLoadedInCannon: {fileID: 11400000, guid: 08450ccf13ec3d44c9acdc1ddef0d40a, type: 2}
   _onCannonFireRequested: {fileID: 11400000, guid: df44d02dbbbd01d44980ece38267034d, type: 2}
   _onScore: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
+--- !u!65 &991103456007558307
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708566766038053303}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.357348, y: 12.729712, z: 21.386414}
+  m_Center: {x: 0, y: 3.366969, z: 1.4003844}
 --- !u!1 &2293519967437537188
 GameObject:
   m_ObjectHideFlags: 0

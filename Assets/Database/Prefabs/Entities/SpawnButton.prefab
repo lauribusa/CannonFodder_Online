@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d6d9866dd9e0af408e9b6a5f2076880, type: 2}
+  - {fileID: 2100000, guid: dd1fe2e8032e37d4d85fbca3c9e8a795, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _onCannonFireRequested: {fileID: 11400000, guid: df44d02dbbbd01d44980ece38267034d, type: 2}
+  _onCannonFireRequested: {fileID: 11400000, guid: 3b07e3f6685d50d4689bc7814a08207b, type: 2}
 --- !u!1 &7260820339630623825
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 1915939375692848191}
   - component: {fileID: 472519369549538360}
   m_Layer: 0
-  m_Name: FireCannonButton
+  m_Name: SpawnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
