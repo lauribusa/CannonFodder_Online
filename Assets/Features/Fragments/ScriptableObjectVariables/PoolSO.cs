@@ -8,23 +8,23 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
 {
     public class PoolSO<T>: ScriptableObject where T : IPoolItem
     {
-        
         [SerializeField]
         private int maxId;
 
         private List<int> freeIds = new();
 
-        private Dictionary<int, T> lookups = new();
+        //private Dictionary<int, T> lookups = new();
         [SerializeField]
         private List<T> list = new();
 
-        private event Action<Dictionary<int, T>> OnPoolUpdated;
+        //private event Action<Dictionary<int, T>> OnPoolUpdated;
+        private event Action<List<T>> OnListUpdated;
 
 
         private void OnEnable()
         {
             maxId = 0;
-            lookups.Clear();
+            //lookups.Clear();
             list.Clear();
         }
 
@@ -55,19 +55,24 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
 
         private void AddToLookups(int id, T obj)
         {
-            lookups.Add(id, obj);
+            //lookups.Add(id, obj);
+            Debug.Log($"{obj.GetType().Name} with id {id}");
             obj.SetId((sbyte)id);
-            OnPoolUpdated?.Invoke(lookups);
+            //OnPoolUpdated?.Invoke(lookups);
+            OnListUpdated?.Invoke(list);
         }
 
         public void Remove(int id)
         {
-            if(!lookups.ContainsKey(id)) return;
-            var obj = lookups[id];
+            //if(!lookups.ContainsKey(id)) return;
+            var obj = list.FirstOrDefault(x => id == x.GetId());
+            if (obj == null) return;
+            //var obj = lookups[id];
             list.Remove(obj);
-            lookups.Remove(id);
+            //lookups.Remove(id);
             freeIds.Add(id);
-            OnPoolUpdated?.Invoke(lookups);
+            //OnPoolUpdated?.Invoke(lookups);
+            OnListUpdated?.Invoke(list);
         }
 
         public void Remove(sbyte id)
@@ -75,40 +80,37 @@ namespace Assets.Features.Fragments.ScriptableObjectVariables
             Remove((int)id);
         }
 
-        public void Subscribe(Action<Dictionary<int, T>> onListUpdated)
-        {
-            OnPoolUpdated += onListUpdated;
-        }
+        //public void Subscribe(Action<Dictionary<int, T>> onListUpdated)
+        //{
+        //    OnPoolUpdated += onListUpdated;
+        //}
 
-        public void Unsubscribe(Action<Dictionary<int, T>> onListUpdated)
-        {
-            OnPoolUpdated -= onListUpdated;
-        }
+        //public void Unsubscribe(Action<Dictionary<int, T>> onListUpdated)
+        //{
+        //    OnPoolUpdated -= onListUpdated;
+        //}
 
-        public Dictionary<int, T> GetPool()
-        {
-            return new(lookups);
-        }
+        //public Dictionary<int, T> GetPool()
+        //{
+        //    return new(lookups);
+        //}
 
         public T Get(int id)
         {
             if (id < 0) return default;
-            return lookups[id];
+            return list.First(x => x.GetId() == id);
+            //return lookups[id];
         }
 
         public bool Has(int id)
         {
-            return lookups.ContainsKey(id);
+            return list.FirstOrDefault(x => x.GetId() == id) != null;
+            //return lookups.ContainsKey(id);
         }
 
         public bool Has(T obj)
         {
             return list.Contains(obj);
-        }
-
-        public void Set(int id, T obj)
-        {
-            lookups[id] = obj;
         }
 
         public int Count()

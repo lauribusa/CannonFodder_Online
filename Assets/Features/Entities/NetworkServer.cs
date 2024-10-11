@@ -27,21 +27,30 @@ namespace Assets.Features.Entities
 
         public VoidEventSO onScored;
 
-        private void OnEnable()
+        private int maxConnections = 4;
+
+        private void Start()
         {
-            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         }
 
-        public void OnClientConnected(ulong id)
+        private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
-            
+            if (NetworkManager.Singleton.ConnectedClientsIds.Count < maxConnections)
+            {
+                response.Approved = true;
+                response.CreatePlayerObject = true;
+                return;
+            }
+            response.Approved = false;
+            response.Reason = "Pas de merguez, pas de porte ouverte!";
+
         }
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
-                isRunning.Value = true;
                 onPlayerSpawn.Subscribe(OnPlayerSpawn);
                 onPlayerLeave.Subscribe(OnPlayerDespawn);
                 onGameStart.Subscribe(OnGameStart);
@@ -74,7 +83,7 @@ namespace Assets.Features.Entities
         public void SetTimeRpc()
         {
             Time.Value -= 1;
-         }
+        }
 
         private void Update()
         {
@@ -90,20 +99,20 @@ namespace Assets.Features.Entities
 
         private void OnTimeChanged(int prev, int next)
         {
-            
+
             var i = next < 0 ? 0 : next;
-            if(next < 0)
+            if (next < 0)
             {
                 Time.Value = i;
             }
             timeSO.Value = i;
-            if(next <= 0 && IsServer)
+            if (next <= 0 && IsServer)
             {
                 OnGameEnd();
             }
         }
 
-        private void OnScoreChanged(byte prev,  byte next)
+        private void OnScoreChanged(byte prev, byte next)
         {
             scoreSO.Value = next;
         }
@@ -149,7 +158,7 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.Server)]
         private void OnGameStartRpc()
         {
-            if(!IsServer) return;
+            if (!IsServer) return;
             isRunning.Value = true;
         }
 

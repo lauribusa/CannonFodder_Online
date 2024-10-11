@@ -25,8 +25,6 @@ namespace Assets.Features.Entities
 
         public Item carriedItem => carriableItemsInScene.Get(carriedItemId.Value);
 
-        public IntVariable carriedItem_Id;
-
         #region Events
         public IntEvent onSetItemParent;
         #endregion
@@ -72,15 +70,12 @@ namespace Assets.Features.Entities
 
         private void PerformPickup()
         {
-            if (debug) Debug.Log($"{carriableItemsInScene.Count()} items in scene", gameObject);
             var existingItems = carriableItemsInScene.ToList();
-            if (debug) Debug.Log($"{existingItems.Count} : {transform.position}");
             existingItems = GameHelpers.SortByDistance(existingItems, transform.position);
             foreach (var item in existingItems)
             {
                 if (item.isCarried.Value) continue;
                 var distance = Vector3.Distance(transform.position, item.transform.position);
-                if (debug) Debug.Log($"Distance between {gameObject.name} and {item.name}: {distance} (required: {GameHelpers.DetectionRange})", gameObject);
                 if (distance <= GameHelpers.DetectionRange)
                 {
                     if (!IsLocalPlayer) return;
@@ -88,7 +83,7 @@ namespace Assets.Features.Entities
                     SetCarriedItemRpc(id.Value);
                     item.PickUp();
                     server.SetItemParentServerSideRpc(id.Value);
-                    if (debug) Debug.Log($"LOCAL FUNC: Setting item parent {id}({item.name}) for {gameObject.name}", gameObject);
+                    if (debug) Debug.Log($"LOCAL FUNC: Setting item parent {id.Value}({item.name}) for {gameObject.name}", gameObject);
                     break;
                 }
             }
@@ -111,20 +106,18 @@ namespace Assets.Features.Entities
 
         private void OnCarriedItemIdUpdate(sbyte prev, sbyte next)
         {
-            carriedItem_Id.Value = next;
             if (next < 0)
             {
-                if (debug) Debug.Log($"Carried item is null (id {next})", gameObject);
+                if (debug) Debug.Log($"Carried item is null (id {next}) for {gameObject.name}", gameObject);
                 return;
             }
-            if (debug) Debug.Log($"Carried item is not null (id {next})", gameObject);
+            if (debug) Debug.Log($"Carried item is not null (id {next}) for {gameObject.name}", gameObject);
         }
 
         [Rpc(SendTo.Server)]
         public void SetCarriedItemRpc(sbyte id)
         {
             carriedItemId.Value = id;
-            var item = carriableItemsInScene.Get(id);
         }
 
         [Rpc(SendTo.Server)]
