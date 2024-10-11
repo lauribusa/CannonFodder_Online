@@ -100,6 +100,6 @@ public class PlayerInteraction : NetworkBehaviour
     {
         if (!_cannonTrigger) return;
 
-        if (Input.GetKeyDown(KeyCode.L)) _cannonTrigger.PushTheButton();
+        if (Input.GetKeyDown(KeyCode.E)) _cannonTrigger.PushTheButton();
     }
 }
