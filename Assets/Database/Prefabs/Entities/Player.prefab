@@ -818,7 +818,6 @@ MonoBehaviour:
   itemAnchorPoint: {fileID: 3355669502648119747}
   carriedItemId:
     m_InternalValue: -1
-  carriedItem_Id: {fileID: 857193664725128596}
   onSetItemParent: {fileID: 5463851985703253504}
 --- !u!114 &5241346990133242715
 MonoBehaviour:
@@ -991,7 +990,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   _moveSpeed: 80
   _rotateSpeed: 10
-  <PushingForce>k__BackingField: 15
+  <PushingForce>k__BackingField: 40
 --- !u!114 &-2498157806401470744
 MonoBehaviour:
   m_ObjectHideFlags: 0
