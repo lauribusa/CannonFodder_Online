@@ -122,6 +122,13 @@ namespace Assets.Features.Entities
 
         public void SetId(sbyte itemId)
         {
+            if (!IsServer) return;
+            SetIdRpc(itemId);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SetIdRpc(sbyte itemId)
+        {
             Id.Value = itemId;
         }
     }

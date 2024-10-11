@@ -20,6 +20,7 @@ namespace Assets.Features.Entities
                 if (IsLocalPlayer) Debug.Log($"LOCALPLAYER: ASSIGNING {id} ({item.name}) TO PLAYER {gameObject.name}");
               
                 item.transform.SetParent(client.transform);
+                item.transform.localPosition = client.GetConstraintSource().sourceTransform.localPosition;
                 client.SetItemParentRpc(id);
             }
             
