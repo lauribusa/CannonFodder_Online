@@ -137,6 +137,7 @@ namespace Assets.Features.Entities
                 carriedItem.constraint.constraintActive = false;
                 carriedItem.constraint.RemoveSource(0);
             }
+            carriedItem.transform.SetParent(null);
             carriedItemId.Value = -1;
         }
 
