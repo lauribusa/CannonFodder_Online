@@ -18,14 +18,24 @@ namespace Assets.Features.Systems
         [SerializeField]
         private Vector3 maxDeviation;
 
+        private void OnSpawnObject()
+        {
+            if (!IsServer) return;
+            OnSpawnObjectsRpc();
+        }
+
         [Rpc(SendTo.Server)]
         private void OnSpawnObjectsRpc()
         {
-            var index = Random.Range(0, networkObjectPrefabs.GetList().Count);
-            var x = Random.Range(minDeviation.x, maxDeviation.x);
-            var y = Random.Range(minDeviation.y, maxDeviation.y);
-            var z = Random.Range(minDeviation.z, maxDeviation.z);
-            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(null);
+            foreach (var prefab in networkObjectPrefabs.GetList())
+            {
+                if (!prefab.TryGetComponent<NetworkObject>(out var networkObject)) continue;
+                var index = Random.Range(0, networkObjectPrefabs.GetList().Count);
+                var x = Random.Range(minDeviation.x, maxDeviation.x);
+                var y = Random.Range(minDeviation.y, maxDeviation.y);
+                var z = Random.Range(minDeviation.z, maxDeviation.z);
+                NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(networkObject, position: new Vector3(x, y, z), rotation: Quaternion.identity);
+            }
         }
     }
 }
