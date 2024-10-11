@@ -995,9 +995,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4577864049239676311, guid: 14cb5528408db064ea25e6be48694f2d, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8104788783434016589, guid: 14cb5528408db064ea25e6be48694f2d, type: 3}
       propertyPath: m_Name
-      value: CannonShell (1)
+      value: CannonShell_B
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2114,9 +2118,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4577864049239676311, guid: 14cb5528408db064ea25e6be48694f2d, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8104788783434016589, guid: 14cb5528408db064ea25e6be48694f2d, type: 3}
       propertyPath: m_Name
-      value: CannonShell
+      value: CannonShell_A
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2377,9 +2385,9 @@ SceneRoots:
   - {fileID: 824844436}
   - {fileID: 1950474853}
   - {fileID: 976515312}
+  - {fileID: 2090461069}
   - {fileID: 1994059630}
   - {fileID: 1728101563}
   - {fileID: 1435956516}
   - {fileID: 963698162}
   - {fileID: 1486854175265823552}
-  - {fileID: 2090461069}
