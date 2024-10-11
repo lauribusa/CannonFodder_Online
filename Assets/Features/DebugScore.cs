@@ -1,6 +1,5 @@
 using Assets.Features.Fragments.ScriptableObjectEvents;
 using Unity.Netcode;
-using UnityEngine;
 
 public class DebugScore : NetworkBehaviour
 {
