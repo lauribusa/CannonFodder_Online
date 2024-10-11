@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1713420342950833537}
   - component: {fileID: -36293901197355828}
   - component: {fileID: 3819610340865882841}
+  - component: {fileID: 6129336385352808548}
   m_Layer: 0
   m_Name: SmallCrate
   m_TagString: Untagged
@@ -231,3 +232,18 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &6129336385352808548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241377525043884870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493d36bfb690e6a4286b7aa9127dca6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _onScore: {fileID: 11400000, guid: 3e73a9b8858c3d344a9b686a12a1d974, type: 2}
+  _intensity: 30

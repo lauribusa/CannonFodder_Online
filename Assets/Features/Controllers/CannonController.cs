@@ -11,6 +11,7 @@ namespace Assets.Features.Controllers
 
         [SerializeField] private BoolEventSO _BulletLoadedInCannon;
         [SerializeField] private VoidEventSO _onCannonFireRequested;
+        [SerializeField] private VoidEventSO _onCannonFired;
         [SerializeField] private VoidEventSO _onScore;
 
         private bool _isBulletLoaded;
@@ -41,12 +42,15 @@ namespace Assets.Features.Controllers
         private void FireCannonServerRpc()
         {
             _isBulletLoaded = false;
+            
+            Debug.Log("Score!!!");
             FireCannonClientRpc();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void FireCannonClientRpc()
         {
+            //_onCannonFired.Trigger();
             _onScore.Trigger();
             Debug.Log("POW!!!");
         }
