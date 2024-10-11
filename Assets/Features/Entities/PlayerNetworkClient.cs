@@ -58,7 +58,7 @@ namespace Assets.Features.Entities
         public override void OnNetworkSpawn()
         {
             carriedItemId.OnValueChanged += OnCarriedItemIdUpdate;
-            if (IsServer) carriedItemId.Value = -1;
+            carriedItemId.Value = -1;
         }
 
         public override void OnNetworkDespawn()
