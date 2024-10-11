@@ -1,11 +1,14 @@
 ﻿using Assets.Features.Entities;
+using Assets.Features.Fragments.ScriptableObjectVariables;
 using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerInteraction : NetworkBehaviour
 {
-    public event Action<Item> ItemLoadingRequested;
+    public event Action<sbyte> ItemLoadingRequested;
+
+    [SerializeField] ItemPool _carriableItemsInScene;
 
     public bool IsReadyToloadItem { get; set; }
 
@@ -54,14 +57,40 @@ public class PlayerInteraction : NetworkBehaviour
 
     private void RequestToLoadItem()
     {
+        if (!IsLocalPlayer) return;
         if (!Input.GetKeyDown(KeyCode.L)) return;
         if (!IsReadyToloadItem) return;
 
+        RequestToLoadItemServerRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void RequestToLoadItemServerRpc()
+    {
         Item carriedItem = _playerNetworkClient.carriedItem;
         if (!carriedItem) return;
 
+        Debug.Log($"<color=yellow>Player is carrying: {_playerNetworkClient.carriedItem.name} ID: {_playerNetworkClient.carriedItem.Id.Value}</color>");
         _playerNetworkClient.PerformPutDownRpc();
-        ItemLoadingRequested?.Invoke(carriedItem);
+
+        Debug.Log($"<color=yellow>BulletLoader has put down: {carriedItem.name} ID: {carriedItem.Id.Value}</color>");
+        ItemLoadingRequested?.Invoke(carriedItem.Id.Value);
+        return;
+        RequestToLoadItemClientRpc(carriedItem.Id.Value);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void RequestToLoadItemClientRpc(sbyte itemID)
+    {
+        //Item carriedItem = _playerNetworkClient.carriedItem;
+        //if (!carriedItem) return;
+
+        //Debug.Log($"<color=yellow>Player is carrying: {_playerNetworkClient.carriedItem.name} ID: {_playerNetworkClient.carriedItem.Id.Value}</color>");
+        //_playerNetworkClient.PerformPutDownRpc();
+
+        Item carriedItem = _carriableItemsInScene.Get(itemID);
+        Debug.Log($"<color=yellow>BulletLoader has put down: {carriedItem.name} ID: {carriedItem.Id.Value}</color>");
+        ItemLoadingRequested?.Invoke(itemID);
     }
 
     private void TurnValve()

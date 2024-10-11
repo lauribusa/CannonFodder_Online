@@ -52,11 +52,13 @@ namespace Assets.Features.Entities
             playerItemLoader.ItemLoadingRequested -= LoadItem;
         }
 
-        public void LoadItem(Item item) => LoadItemServerRpc(item.Id.Value);
+        public void LoadItem(sbyte itemID) => LoadItemServerRpc(itemID);
 
         [Rpc(SendTo.Server)]
         private void LoadItemServerRpc(sbyte itemID)
         {
+            Debug.Log($"<color=yellow>Item loaded ID: {itemID}</color>");
+
             if (!_isLoadingCarReseted)
             {
                 Debug.Log("<color=orange>You must reset the loading bullet car</color>");
@@ -69,7 +71,10 @@ namespace Assets.Features.Entities
             if (_itemLoaded || !item) return;
 
             _itemLoaded = item;
+
+            Debug.Log($"<color=green>SERVER: {item.name} ID: {item.Id.Value} was kinematic: {item.GetComponent<Rigidbody>().isKinematic}</color>");
             item.GetComponent<Rigidbody>().isKinematic = true;
+            Debug.Log($"<color=green>SERVER: {item.name} ID: {item.Id.Value} is now kinematic: {item.GetComponent<Rigidbody>().isKinematic}</color>");
 
             var itemTransform = item.transform;
             itemTransform.SetParent(_anchorPoint);
@@ -81,9 +86,16 @@ namespace Assets.Features.Entities
         [Rpc(SendTo.ClientsAndHost)]
         private void LoadItemClientRpc(sbyte itemID)
         {
-            Item item = _carriableItemsInScene.Get(itemID);
+            for (int i = 0; i < _carriableItemsInScene.Count(); i++)
+            {
+                Item pooledItem = _carriableItemsInScene.Get(i);
+                Debug.Log($"<color=white>{i} -> CLIENT: {pooledItem.name} has ID: {pooledItem.Id.Value}</color>");
+            }
 
+            Item item = _carriableItemsInScene.Get(itemID);
             item.GetComponent<Rigidbody>().isKinematic = true;
+            Debug.Log($"<color=cyan>ID {itemID} received - item in client: {item.name}</color>");
+            Debug.Log($"<color=cyan>CLIENT: {item.name} ID: {item.Id.Value} is kinematic: {item.GetComponent<Rigidbody>().isKinematic}</color>");
 
             item.transform.localPosition = Vector3.zero;
         }
