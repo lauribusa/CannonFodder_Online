@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  networkObjectPrefabs: {fileID: 11400000, guid: 16a0c701d4c366d41a6870fb5316e88d, type: 2}
+  networkObjectPrefabs: {fileID: 11400000, guid: dc8bbe3a242565b4ca5292a1c411abcc, type: 2}
   onSpawnObjects: {fileID: 11400000, guid: 3b07e3f6685d50d4689bc7814a08207b, type: 2}
   minDeviation: {x: -2, y: 0, z: -2}
   maxDeviation: {x: 2, y: 1, z: 2}
