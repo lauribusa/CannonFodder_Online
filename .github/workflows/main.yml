@@ -1,202 +1,48 @@
-            - name: Checkout
-  uses: actions/checkout@v4.2.2
-  with:
-    # Repository name with owner. For example, actions/checkout
-    repository: # optional, default is ${{ github.repository }}
-    # The branch, tag or SHA to checkout. When checking out the repository that triggered a workflow, this defaults to the reference or SHA for that event.  Otherwise, uses the default branch.
+name: Actions 😎
 
-    ref: # optional
-    # Personal access token (PAT) used to fetch the repository. The PAT is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the PAT.
+on: [push, pull_request]
 
-We recommend using a service account with the least permissions necessary. Also when generating a new PAT, select the least scopes necessary.
+jobs:
+  build:
+    name: Build my project ✨
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
 
-[Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
+      # Cache
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
 
-    token: # optional, default is ${{ github.token }}
-    # SSH key used to fetch the repository. The SSH key is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the SSH key.
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
 
-We recommend using a service account with the least permissions necessary.
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
 
-[Learn more about creating and using encrypted secrets](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets)
-
-    ssh-key: # optional
-    # Known hosts in addition to the user and global host key database. The public SSH keys for a host may be obtained using the utility `ssh-keyscan`. For example, `ssh-keyscan github.com`. The public key for github.com is always implicitly added.
-
-    ssh-known-hosts: # optional
-    # Whether to perform strict host key checking. When true, adds the options `StrictHostKeyChecking=yes` and `CheckHostIP=no` to the SSH command line. Use the input `ssh-known-hosts` to configure additional hosts.
-
-    ssh-strict: # optional, default is true
-    # The user to use when connecting to the remote SSH host. By default 'git' is used.
-
-    ssh-user: # optional, default is git
-    # Whether to configure the token or SSH key with the local git config
-    persist-credentials: # optional, default is true
-    # Relative path under $GITHUB_WORKSPACE to place the repository
-    path: # optional
-    # Whether to execute `git clean -ffdx && git reset --hard HEAD` before fetching
-    clean: # optional, default is true
-    # Partially clone against a given filter. Overrides sparse-checkout if set.
-
-    filter: # optional
-    # Do a sparse checkout on given patterns. Each pattern should be separated with new lines.
-
-    sparse-checkout: # optional
-    # Specifies whether to use cone-mode when doing a sparse checkout.
-
-    sparse-checkout-cone-mode: # optional, default is true
-    # Number of commits to fetch. 0 indicates all history for all branches and tags.
-    fetch-depth: # optional, default is 1
-    # Whether to fetch tags, even if fetch-depth > 0.
-    fetch-tags: # optional
-    # Whether to show progress status output when fetching.
-    show-progress: # optional, default is true
-    # Whether to download Git-LFS files
-    lfs: # optional
-    # Whether to checkout submodules: `true` to checkout submodules or `recursive` to recursively checkout submodules.
-
-When the `ssh-key` input is not provided, SSH URLs beginning with `git@github.com:` are converted to HTTPS.
-
-    submodules: # optional
-    # Add repository path as safe.directory for Git global config by running `git config --global --add safe.directory <path>`
-    set-safe-directory: # optional, default is true
-    # The base URL for the GitHub instance that you are trying to clone from, will use environment defaults to fetch from the same instance that the workflow is running from unless specified. Example URLs are https://github.com or https://my-ghes-server.example.com
-    github-server-url: # optional
-
-            - name: Cache
-  uses: actions/cache@v4.1.2
-  with:
-    # A list of files, directories, and wildcard patterns to cache and restore
-    path: 
-    # An explicit key for restoring and saving the cache
-    key: 
-    # An ordered multiline string listing the prefix-matched keys, that are used for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
-    restore-keys: # optional
-    # The chunk size used to split up large files during upload, in bytes
-    upload-chunk-size: # optional
-    # An optional boolean when enabled, allows windows runners to save or restore caches that can be restored or saved respectively on other platforms
-    enableCrossOsArchive: # optional, default is false
-    # Fail the workflow if cache entry is not found
-    fail-on-cache-miss: # optional, default is false
-    # Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache
-    lookup-only: # optional, default is false
-    # Run the post step to save the cache even if another step before fails
-    save-always: # optional, default is false
-
-            - name: Unity - Builder
-  # You may pin to the exact commit or the version.
-  # uses: game-ci/unity-builder@b11b6a6f2ccfed2359d8e0d9f9d300031d8f925e
-  uses: game-ci/unity-builder@v4.3.0
-  with:
-    # Platform that the build should target.
-    targetPlatform: # default is 
-    # Version of unity to use for building the project. Use "auto" to get from your ProjectSettings/ProjectVersion.txt
-    unityVersion: # optional, default is auto
-    # Specific docker image that should be used for building the project
-    customImage: # optional, default is 
-    # Relative path to the project to be built.
-    projectPath: # optional, default is 
-    # Name of the build. Should not include a file extension.
-    buildName: # optional, default is 
-    # Path where the builds should be stored.
-    buildsPath: # optional, default is 
-    # Path to a Namespace.Class.StaticMethod to run to perform the build.
-    buildMethod: # optional, default is 
-    # Suppresses `-quit`. Exit your build method using `EditorApplication.Exit(0)` instead.
-    manualExit: # optional, default is 
-    # Launches unity without specifying `-nographics`.
-    enableGpu: # optional, default is 
-    # Custom parameters to configure the build.
-    customParameters: # optional, default is 
-    # The versioning scheme to use when building the project
-    versioning: # optional, default is Semantic
-    # The version, when used with the "Custom" versioning scheme
-    version: # optional, default is 
-    # The android versionCode
-    androidVersionCode: # optional, default is 
-    # The android export type. Should be androidPackage for apk, androidAppBundle for aab, or androidStudioProject for an android studio project.
-    androidExportType: # optional, default is androidPackage
-    # The android keystoreName
-    androidKeystoreName: # optional, default is 
-    # The base64 contents of the android keystore file
-    androidKeystoreBase64: # optional, default is 
-    # The android keystorePass
-    androidKeystorePass: # optional, default is 
-    # The android keyaliasName
-    androidKeyaliasName: # optional, default is 
-    # The android keyaliasPass
-    androidKeyaliasPass: # optional, default is 
-    # The android target API level.
-    androidTargetSdkVersion: # optional, default is 
-    # The android symbol type to export. Should be "none", "public" or "debugging".
-    androidSymbolType: # optional, default is none
-    # SSH Agent path to forward to the container
-    sshAgent: # optional, default is 
-    # Path to a directory containing SSH public keys to forward to the container.
-    sshPublicKeysDirectoryPath: # optional, default is 
-    # [CloudRunner] Github private token to pull from github
-    gitPrivateToken: # optional, default is 
-    # [CloudRunner] GitHub owner name or organization/team name
-    githubOwner: # optional, default is 
-    # Whether to run as a user that matches the host system or the default root container user. Only applicable to Linux hosts and containers. This is useful for fixing permission errors on Self-Hosted runners.
-    runAsHostUser: # optional, default is false
-    # User and optionally group (user or user:group or uid:gid) to give ownership of the resulting build artifacts
-    chownFilesTo: # optional, default is 
-    # Number of CPU cores to assign the docker container. Defaults to all available cores on all platforms.
-    dockerCpuLimit: # optional, default is 
-    # Amount of memory to assign the docker container. Defaults to 95% of total system memory rounded down to the nearest megabyte on Linux and 80% on Windows. On unrecognized platforms, defaults to 75% of total system memory. To manually specify a value, use the format <number><unit>, where unit is either m or g. ie: 512m = 512 megabytes
-    dockerMemoryLimit: # optional, default is 
-    # Isolation mode to use for the docker container. Can be one of process, hyperv, or default. Default will pick the default mode as described by Microsoft where server versions use process and desktop versions use hyperv. Only applicable on Windows
-    dockerIsolationMode: # optional, default is default
-    # Container registry and repository to pull image from. Only applicable if customImage is not set.
-    containerRegistryRepository: # optional, default is unityci/editor
-    # Container registry image version. Only applicable if customImage is not set.
-    containerRegistryImageVersion: # optional, default is 3
-    # [CloudRunner] Allows the branch of the build to be dirty, and still generate the build.
-    allowDirtyBuild: # optional, default is 
-    # [CloudRunner] run a post build job in yaml format with the keys image, secrets (name, value object array), command string
-    postBuildSteps: # optional, default is 
-    # [CloudRunner] Run a pre build job after the repository setup but before the build job (in yaml format with the keys image, secrets (name, value object array), command line string)
-    preBuildSteps: # optional, default is 
-    # [CloudRunner] Specify the names (by file name) of custom steps to run before or after cloud runner jobs, must match a yaml step file inside your repo in the folder .game-ci/steps/
-    containerHookFiles: # optional, default is 
-    # [CloudRunner] Specify the names (by file name) of custom hooks to run before or after cloud runner jobs, must match a yaml step file inside your repo in the folder .game-ci/hooks/
-    customHookFiles: # optional, default is 
-    # [CloudRunner] Specify custom commands and trigger hooks (injects commands into jobs)
-    customCommandHooks: # optional, default is 
-    # [CloudRunner] Run a custom job instead of the standard build automation for cloud runner (in yaml format with the keys image, secrets (name, value object array), command line string)
-    customJob: # optional, default is 
-    # [CloudRunner] The Cloud Formation stack name that must be setup before using this option.
-    awsStackName: # optional, default is game-ci
-    # [CloudRunner] Either local, k8s or aws can be used to run builds on a remote cluster. Additional parameters must be configured.
-    providerStrategy: # optional, default is local
-    # [CloudRunner] Amount of CPU time to assign the remote build container
-    containerCpu: # optional, default is 
-    # [CloudRunner] Amount of memory to assign the remote build container
-    containerMemory: # optional, default is 
-    # [CloudRunner] Comma separated list of input value names to read from "input override command"
-    readInputFromOverrideList: # optional, default is 
-    # [CloudRunner] Extend game ci by specifying a command to execute to pull input from external source e.g cloud provider secret managers
-    readInputOverrideCommand: # optional, default is 
-    # [CloudRunner] Supply a base64 encoded kubernetes config to run builds on kubernetes and stream logs until completion.
-    kubeConfig: # optional, default is 
-    # [CloudRunner] Supply a Persistent Volume Claim name to use for the Unity build.
-    kubeVolume: # optional, default is 
-    # [CloudRunner] Kubernetes storage class to use for cloud runner jobs, leave empty to install rook cluster.
-    kubeStorageClass: # optional, default is 
-    # [CloudRunner] Amount of disc space to assign the Kubernetes Persistent Volume
-    kubeVolumeSize: # optional, default is 5Gi
-    # [CloudRunner] Cache key to indicate bucket for cache
-    cacheKey: # optional, default is 
-    # [CloudRunner] Whether or not to watch the build to the end. Can be used for especially long running jobs e.g imports or self-hosted ephemeral runners.
-    watchToEnd: # optional, default is true
-    # Whether to cache the Unity hub and editor installation on MacOS
-    cacheUnityInstallationOnMac: # optional, default is false
-    # The version of Unity Hub to install on MacOS (e.g. 3.4.0). Defaults to latest available on brew if empty string or nothing is specified.
-    unityHubVersionOnMac: # optional, default is 
-    # The Unity licensing server address to use for activating Unity.
-    unityLicensingServer: # optional, default is 
-    # The path to mount the workspace inside the docker container. For windows, leave out the drive letter. For example c:/github/workspace should be defined as /github/workspace
-    dockerWorkspacePath: # optional, default is /github/workspace
-    # Skip the activation/deactivation of Unity. This assumes Unity is already activated.
-    skipActivation: # optional, default is false
-          
+      # Output
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Build
+          path: build
